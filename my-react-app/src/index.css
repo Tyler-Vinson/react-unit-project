@@ -1,0 +1,245 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f5f1e8;
+  background: #171411;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(120, 88, 45, 0.24), transparent 42rem),
+    #171411;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(245, 241, 232, 0.16);
+  background: rgba(23, 20, 17, 0.92);
+}
+
+nav a {
+  color: #d8c5a3;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: #fff5df;
+}
+
+main {
+  width: min(100% - 2rem, 1100px);
+  margin: 0 auto;
+}
+
+.viewer-page {
+  padding: 2rem 0 3rem;
+}
+
+.viewer-card {
+  overflow: visible;
+  border: 1px solid rgba(216, 197, 163, 0.28);
+  border-radius: 18px;
+  background: rgba(38, 31, 24, 0.9);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+}
+
+.viewer-heading {
+  padding: 2rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: #d8a85e;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.viewer-heading h1 {
+  margin: 0 0 0.75rem;
+  color: #fff5df;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.description {
+  max-width: 60ch;
+  color: #cbbda9;
+}
+
+.statue-list-label {
+  display: block;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff5df;
+  font-weight: 700;
+}
+
+.statue-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.25rem 0 1rem;
+}
+
+.statue-card {
+  display: flex;
+  flex: 0 0 16rem;
+  min-height: 7rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(216, 197, 163, 0.3);
+  border-radius: 10px;
+  color: #cbbda9;
+  background: #211b16;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.statue-card:hover,
+.statue-card:focus-visible {
+  border-color: #d8a85e;
+  transform: translateY(-2px);
+}
+
+.statue-card.selected {
+  border-color: #d8a85e;
+  color: #fff5df;
+  background: #3a2b1c;
+  box-shadow: inset 0 0 0 1px rgba(216, 168, 94, 0.25);
+}
+
+.statue-card-number {
+  color: #d8a85e;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.render-carousel {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: min(65vw, 620px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: #8d6d43 #211b16;
+  background: #efe1c7;
+}
+
+.render-slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-height: min(65vw, 620px);
+  scroll-snap-align: start;
+}
+
+.render-slide iframe {
+  display: block;
+  width: 100%;
+  min-height: min(65vw, 620px);
+  border: 0;
+}
+
+.render-slide iframe.hidden {
+  visibility: hidden;
+}
+
+.render-slide-label {
+  display: grid;
+  min-height: min(65vw, 620px);
+  place-content: center;
+  gap: 0.5rem;
+  color: #433322;
+  text-align: center;
+}
+
+.render-slide-label small {
+  color: #735d43;
+}
+
+.viewer-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  color: #735d43;
+  background: #efe1c7;
+  text-align: center;
+}
+
+.placeholder-icon {
+  color: #9b6e31;
+  font-size: 2.5rem;
+}
+
+.viewer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+}
+
+.status {
+  margin: 0;
+  color: #cbbda9;
+}
+
+.viewer-controls button {
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 8px;
+  color: #211b16;
+  background: #d8a85e;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.viewer-controls button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+@media (max-width: 640px) {
+  .viewer-heading {
+    padding: 1.25rem;
+  }
+
+  .statue-list {
+    padding-inline: 0;
+  }
+
+  .viewer-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
