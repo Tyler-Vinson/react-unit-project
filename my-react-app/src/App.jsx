@@ -3,7 +3,14 @@ import './App.css'
 
 const SKETCHFAB_API_URL =
   'https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js'
-const MODEL_UID = '7w7pAfrCfjovwykkEeRFLGw5SXS'
+
+// Keep this allowlist limited to approved historical statue scans.
+const HISTORICAL_STATUE_SCANS = [
+  {
+    uid: '7w7pAfrCfjovwykkEeRFLGw5SXS',
+    title: 'Historical statue scan',
+  },
+]
 
 let sketchfabScriptPromise
 
@@ -32,6 +39,7 @@ function loadSketchfabScript() {
 function App() {
   const iframeRef = useRef(null)
   const viewerRef = useRef(null)
+  const selectedScan = HISTORICAL_STATUE_SCANS[0]
   const [status, setStatus] = useState('Click “Load model” to start the viewer.')
   const [isLoading, setIsLoading] = useState(false)
   const [isReady, setIsReady] = useState(false)
@@ -55,7 +63,7 @@ function App() {
       await loadSketchfabScript()
 
       const client = new window.Sketchfab(iframeRef.current)
-      client.init(MODEL_UID, {
+      client.init(selectedScan.uid, {
         success: (api) => {
           viewerRef.current = api
           api.start()
@@ -80,10 +88,11 @@ function App() {
     <main className="viewer-page">
       <section className="viewer-card" aria-labelledby="viewer-title">
         <div className="viewer-heading">
-          <p className="eyebrow">Interactive 3D</p>
-          <h1 id="viewer-title">Sketchfab viewer</h1>
+          <p className="eyebrow">Historical statue scans</p>
+          <h1 id="viewer-title">{selectedScan.title}</h1>
           <p className="description">
-            Load the model directly in this React app using the Sketchfab Viewer API.
+            Explore an approved historical statue scan directly in this React app.
+            Only models added to the curated scan allowlist can be loaded.
           </p>
         </div>
 
