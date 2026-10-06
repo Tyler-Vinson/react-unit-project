@@ -61,7 +61,7 @@ function loadSketchfabScript() {
   return sketchfabScriptPromise
 }
 
-function App() {
+function ThreeDViewer() {
   const iframeRef = useRef(null)
   const viewerRef = useRef(null)
   const [selectedScanIndex, setSelectedScanIndex] = useState(0)
@@ -185,5 +185,4 @@ function App() {
     </main>
   )
 }
-
-export default App
+export default ThreeDViewer
