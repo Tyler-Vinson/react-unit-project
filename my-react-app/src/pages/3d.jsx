@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import './App.css'
+import '../App.css'
 
 const SKETCHFAB_API_URL =
   'https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js'
@@ -64,6 +64,7 @@ function loadSketchfabScript() {
 function ThreeDViewer() {
   const iframeRef = useRef(null)
   const viewerRef = useRef(null)
+  const activeScanUidRef = useRef(null)
   const [selectedScanIndex, setSelectedScanIndex] = useState(0)
   const [status, setStatus] = useState('Click “Load model” to start the viewer.')
   const [isLoading, setIsLoading] = useState(false)
@@ -96,6 +97,7 @@ function ThreeDViewer() {
   const selectScan = (event) => {
     viewerRef.current?.stop?.()
     viewerRef.current = null
+    activeScanUidRef.current = null
     setSelectedScanIndex(Number(event.target.value))
     setIsLoading(false)
     setIsReady(false)
@@ -109,6 +111,7 @@ function ThreeDViewer() {
 
     setIsLoading(true)
     setStatus('Loading the Sketchfab viewer…')
+    activeScanUidRef.current = selectedScan.uid
 
     try {
       await loadSketchfabScript()
@@ -116,20 +119,33 @@ function ThreeDViewer() {
       const client = new window.Sketchfab(iframeRef.current)
       client.init(selectedScan.uid, {
         success: (api) => {
+          if (activeScanUidRef.current !== selectedScan.uid) {
+            api.stop?.()
+            return
+          }
           viewerRef.current = api
           api.start()
           api.addEventListener('viewerready', () => {
+            if (activeScanUidRef.current !== selectedScan.uid) {
+              return
+            }
             setIsLoading(false)
             setIsReady(true)
             setStatus('Viewer ready.')
           })
         },
         error: () => {
+          if (activeScanUidRef.current !== selectedScan.uid) {
+            return
+          }
           setIsLoading(false)
           setStatus('Sketchfab could not load this model. Please try again.')
         },
       })
     } catch (error) {
+      if (activeScanUidRef.current !== selectedScan.uid) {
+        return
+      }
       setIsLoading(false)
       setStatus(error.message)
     }
@@ -157,6 +173,7 @@ function ThreeDViewer() {
 
         <div className="viewer-frame">
           <iframe
+            key={selectedScan.uid}
             className={isReady ? '' : 'hidden'}
             ref={iframeRef}
             title="Sketchfab 3D model"
