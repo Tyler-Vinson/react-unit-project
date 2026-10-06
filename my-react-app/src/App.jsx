@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import ThreeDViewer from './pages/3d'
 import Overview from './pages/overview'
 import MainRoom from './pages/main-room'
@@ -17,16 +18,16 @@ const routes = {
 }
 
 const basePath = import.meta.env.BASE_URL || '/'
+const basePrefix = basePath.replace(/\/+$/, '')
 
 function toAppPath(rawPath) {
   const normalized = rawPath.replace(/\/+$/, '') || '/'
 
-  if (normalized === basePath.replace(/\/+$/, '')) {
+  if (normalized === basePrefix || normalized === '/') {
     return '/'
   }
 
-  const basePrefix = basePath.replace(/\/+$/, '')
-  return normalized.startsWith(basePrefix)
+  return normalized.startsWith(`${basePrefix}/`)
     ? normalized.slice(basePrefix.length) || '/'
     : normalized
 }
@@ -37,16 +38,39 @@ function withBasePath(path) {
 }
 
 function App() {
-  const Page = routes[toAppPath(window.location.pathname)] ?? Overview
+  const [currentPath, setCurrentPath] = useState(() =>
+    toAppPath(window.location.pathname),
+  )
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(toAppPath(window.location.pathname))
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  const navigate = (event, path) => {
+    event.preventDefault()
+    const destination = withBasePath(path)
+
+    if (window.location.pathname !== destination) {
+      window.history.pushState({}, '', destination)
+      setCurrentPath(path)
+    }
+  }
+
+  const Page = routes[currentPath] ?? Overview
 
   return (
     <>
       <nav aria-label="Primary navigation">
-        <a href={withBasePath('/')}>Home</a>
-        <a href={withBasePath('/3d')}>3D statues</a>
-        <a href={withBasePath('/about')}>About</a>
-        <a href={withBasePath('/old-photos')}>Old photos</a>
-        <a href={withBasePath('/modern')}>Modern</a>
+        <a href={withBasePath('/')} onClick={(event) => navigate(event, '/')}>Home</a>
+        <a href={withBasePath('/3d')} onClick={(event) => navigate(event, '/3d')}>3D statues</a>
+        <a href={withBasePath('/about')} onClick={(event) => navigate(event, '/about')}>About</a>
+        <a href={withBasePath('/old-photos')} onClick={(event) => navigate(event, '/old-photos')}>Old photos</a>
+        <a href={withBasePath('/modern')} onClick={(event) => navigate(event, '/modern')}>Modern</a>
         <MusicPlayer />
       </nav>
       <Page />
