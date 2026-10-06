@@ -98,6 +98,23 @@ main {
   font-weight: 700;
 }
 
+.music-button {
+  margin-top: 1rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid #d8a85e;
+  border-radius: 8px;
+  color: #fff5df;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.music-button:hover,
+.music-button:focus-visible {
+  color: #211b16;
+  background: #d8a85e;
+}
+
 .statue-list {
   display: flex;
   flex-wrap: wrap;

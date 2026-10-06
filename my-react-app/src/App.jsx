@@ -3,6 +3,7 @@ import Overview from './pages/overview'
 import MainRoom from './pages/main-room'
 import Modern from './pages/modern'
 import OldPhotos from './pages/old-photos'
+import MusicPlayer from './components/navbar/music'
 
 const routes = {
   '/': Overview,
@@ -26,6 +27,7 @@ function App() {
         <a href="/about">About</a>
         <a href="/old-photos">Old photos</a>
         <a href="/modern">Modern</a>
+        <MusicPlayer />
       </nav>
       <Page />
     </>
