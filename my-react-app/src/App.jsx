@@ -16,17 +16,37 @@ const routes = {
   '/OldPhotos': OldPhotos,
 }
 
+const basePath = import.meta.env.BASE_URL || '/'
+
+function toAppPath(rawPath) {
+  const normalized = rawPath.replace(/\/+$/, '') || '/'
+
+  if (normalized === basePath.replace(/\/+$/, '')) {
+    return '/'
+  }
+
+  const basePrefix = basePath.replace(/\/+$/, '')
+  return normalized.startsWith(basePrefix)
+    ? normalized.slice(basePrefix.length) || '/'
+    : normalized
+}
+
+function withBasePath(path) {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  return `${basePath}${cleanPath.slice(1)}`
+}
+
 function App() {
-  const Page = routes[window.location.pathname] ?? Overview
+  const Page = routes[toAppPath(window.location.pathname)] ?? Overview
 
   return (
     <>
       <nav aria-label="Primary navigation">
-        <a href="/">Home</a>
-        <a href="/3d">3D statues</a>
-        <a href="/about">About</a>
-        <a href="/old-photos">Old photos</a>
-        <a href="/modern">Modern</a>
+        <a href={withBasePath('/')}>Home</a>
+        <a href={withBasePath('/3d')}>3D statues</a>
+        <a href={withBasePath('/about')}>About</a>
+        <a href={withBasePath('/old-photos')}>Old photos</a>
+        <a href={withBasePath('/modern')}>Modern</a>
         <MusicPlayer />
       </nav>
       <Page />
