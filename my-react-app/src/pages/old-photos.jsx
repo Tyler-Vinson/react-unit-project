@@ -1,8 +1,20 @@
-export default function OldPhotos() {
-    return (
-        <main>
-            <h1>Old photos</h1>
-            <p>Explore a curated collection of historical statue scans.</p>
-        </main>
-    );
+import { Component } from "react";
+import "./old-photos.css";
+
+class oldPhotos extends Component {
+constructor() {
+super();
+this.state = {
+photos: []
+};}
+componentDidMount() {
+    fetch("https://api.si.edu/openaccess/api/v1.0/content/:id")
 }
+render() {
+return (
+<section className="app">
+<p>Is this working?</p>
+</section>);}}
+
+
+export default oldPhotos;
