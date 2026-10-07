@@ -6,40 +6,79 @@ import Modern from './pages/modern'
 import OldPhotos from './pages/old-photos'
 import MusicPlayer from './components/navbar/music'
 
+const basePath = import.meta.env.BASE_URL || '/react-unit-project/'
+const basePrefix = basePath.replace(/\/+$/, '')
+
+function getInitialPath() {
+  const storedRoute = sessionStorage.getItem('route')
+  if (storedRoute) {
+    sessionStorage.removeItem('route')
+    return storedRoute
+  }
+
+  const queryRoute = new URLSearchParams(window.location.search).get('route')
+  if (queryRoute) {
+    return queryRoute
+  }
+
+  const rawPath = window.location.pathname || '/'
+  const normalized = rawPath.replace(/\/+$/, '') || '/'
+
+  if (normalized === basePrefix || normalized === '/') {
+    return '/'
+  }
+
+  return normalized.startsWith(`${basePrefix}/`)
+    ? normalized.slice(basePrefix.length) || '/'
+    : normalized
+}
+
+function withBasePath(path) {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  return `${basePath}${cleanPath.slice(1)}`
+}
+
 const routes = {
   '/': Overview,
   '/3d': ThreeDViewer,
-  '/about': MainRoom,
   '/main-room': MainRoom,
-  '/modern': Modern,
+  '/about': Overview,
   '/old-photos': OldPhotos,
-}
-
-function getHashPath() {
-  const hash = window.location.hash.replace(/^#/, '').trim() || '/'
-  return hash.startsWith('/') ? hash : `/${hash}`
+  '/modern': Modern,
 }
 
 function App() {
-  const [path, setPath] = useState(getHashPath)
+  const [currentPath, setCurrentPath] = useState(getInitialPath)
 
   useEffect(() => {
-    const handleHashChange = () => setPath(getHashPath())
-    window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
+    const handlePopState = () => setCurrentPath(getInitialPath())
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  const Page = routes[path] ?? Overview
+  const navigate = (event, path) => {
+    event.preventDefault()
+    const target = withBasePath(path)
+    const normalizedTarget = target.replace(/\/+$/, '') || '/'
+
+    if (window.location.pathname !== normalizedTarget) {
+      window.history.pushState({}, '', normalizedTarget)
+    }
+
+    setCurrentPath(path)
+  }
+
+  const Page = routes[currentPath] ?? Overview
 
   return (
     <>
       <nav aria-label="Primary navigation">
-        <a href="#/">Home</a>
-        <a href="#/3d">3D statues</a>
-        <a href="#/main-room">Main room</a>
-        <a href="#/about">About</a>
-        <a href="#/old-photos">Old photos</a>
-        <a href="#/modern">Modern</a>
+        <a href={withBasePath('/')} onClick={(event) => navigate(event, '/')}>Home</a>
+        <a href={withBasePath('/3d')} onClick={(event) => navigate(event, '/3d')}>3D statues</a>
+        <a href={withBasePath('/main-room')} onClick={(event) => navigate(event, '/main-room')}>Main room</a>
+        <a href={withBasePath('/about')} onClick={(event) => navigate(event, '/about')}>About</a>
+        <a href={withBasePath('/old-photos')} onClick={(event) => navigate(event, '/old-photos')}>Old photos</a>
+        <a href={withBasePath('/modern')} onClick={(event) => navigate(event, '/modern')}>Modern</a>
         <MusicPlayer />
       </nav>
       <Page />
