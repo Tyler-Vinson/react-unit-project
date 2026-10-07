@@ -12,13 +12,11 @@ const routes = {
   '/about': MainRoom,
   '/main-room': MainRoom,
   '/modern': Modern,
-  '/Modern': Modern,
   '/old-photos': OldPhotos,
-  '/OldPhotos': OldPhotos,
 }
 
 function getHashPath() {
-  const hash = window.location.hash.replace(/^#/, '') || '/'
+  const hash = window.location.hash.replace(/^#/, '').trim() || '/'
   return hash.startsWith('/') ? hash : `/${hash}`
 }
 
