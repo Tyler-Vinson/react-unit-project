@@ -1,4 +1,4 @@
-import 'old-photos.css';
+import '../old-photos.css';
 
 function OldPhotos() {
     return (
