@@ -8,16 +8,16 @@ const Navbar = () => {
             <Nav>
                 <NavMenu>
                     <NavLink to="/main-room" activeStyle>
-                        About
+                        Main Room
                     </NavLink>
                     <NavLink to="/old-photos" activeStyle>
-                        Contact Us
+                        Historic Art
                     </NavLink>
                     <NavLink to="/3d" activeStyle>
-                        Blogs
+                        Statue Renders
                     </NavLink>
                     <NavLink to="/modern" activeStyle>
-                        Sign Up
+                        Modern Art
                     </NavLink>
                 </NavMenu>
             </Nav>
