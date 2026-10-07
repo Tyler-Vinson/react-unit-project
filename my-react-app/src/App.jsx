@@ -36,6 +36,7 @@ function App() {
       <nav aria-label="Primary navigation">
         <a href="#/">Home</a>
         <a href="#/3d">3D statues</a>
+        <a href="#/main-room">Main room</a>
         <a href="#/about">About</a>
         <a href="#/old-photos">Old photos</a>
         <a href="#/modern">Modern</a>
