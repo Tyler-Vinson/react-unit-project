@@ -43,9 +43,18 @@ nav {
   background: rgba(23, 20, 17, 0.92);
 }
 
+.nav-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
 nav a {
   color: #d8c5a3;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 nav a:hover,

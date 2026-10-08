@@ -1,8 +1,8 @@
 import { NavLink as RouterNavLink } from 'react-router-dom'
 
-export const Nav = ({ children }) => <nav>{children}</nav>
+export const Nav = ({ children, ...props }) => <nav {...props}>{children}</nav>
 
-export const NavMenu = ({ children }) => <div>{children}</div>
+export const NavMenu = ({ children }) => <div className="nav-menu">{children}</div>
 
 export const NavLink = ({ activeStyle, ...props }) => {
   const resolvedActiveStyle =
