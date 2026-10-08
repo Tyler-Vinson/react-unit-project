@@ -1,3 +1,5 @@
+import '../modern-photos.css'
+
 const Modern = () => (
   <main>
     <h1>Modern</h1>

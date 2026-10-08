@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import '../App.css'
+import '../3d.css'
 
 const SKETCHFAB_API_URL =
   'https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js'
@@ -144,6 +145,7 @@ function ThreeDViewer() {
 
       const client = new window.Sketchfab(iframeRef.current)
       client.init(selectedScan.uid, {
+        transparent: 1,
         success: (api) => {
           if (activeScanUidRef.current !== selectedScan.uid) {
             api.stop?.()
@@ -155,7 +157,6 @@ function ThreeDViewer() {
             if (activeScanUidRef.current !== selectedScan.uid) {
               return
             }
-            api.setBackground?.({ color: [0.93, 0.88, 0.78] })
             setIsLoading(false)
             setIsReady(true)
             setStatus('Viewer ready.')

@@ -1,3 +1,5 @@
+import '../old-photos.css'
+
 const OldPhotos = () => (
   <main>
     <h1>Old photos</h1>

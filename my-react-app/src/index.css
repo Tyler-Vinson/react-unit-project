@@ -20,6 +20,10 @@ body {
     #171411;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 a {
   color: inherit;
 }
@@ -54,20 +58,64 @@ main {
   margin: 0 auto;
 }
 
+main:not(.viewer-page) {
+  display: grid;
+  min-height: calc(100vh - 4.5rem);
+  align-content: center;
+  justify-items: start;
+  padding: 4rem clamp(1.25rem, 5vw, 5rem);
+  border: 1px solid rgba(216, 197, 163, 0.2);
+  border-top: 0;
+  background:
+    linear-gradient(135deg, rgba(72, 52, 31, 0.44), transparent 55%),
+    rgba(38, 31, 24, 0.48);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+main:not(.viewer-page) h1 {
+  max-width: 12ch;
+  margin: 0 0 1rem;
+  color: #fff5df;
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+main:not(.viewer-page) p {
+  max-width: 48ch;
+  margin: 0;
+  color: #cbbda9;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
 .viewer-page {
-  padding: 2rem 0 3rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: calc(100vh - 4.5rem);
+  padding: 1rem max(1rem, calc((100% - 1100px) / 2)) 2rem;
+  box-sizing: border-box;
+  background:
+    linear-gradient(rgba(23, 20, 17, 0.58), rgba(23, 20, 17, 0.84)),
+    url('/alberti-nave.jpg') center top / cover fixed no-repeat;
 }
 
 .viewer-card {
+  width: min(92%, 900px);
+  margin-inline: auto;
   overflow: visible;
-  border: 1px solid rgba(216, 197, 163, 0.28);
+  border: 1px solid rgba(216, 197, 163, 0.18);
   border-radius: 18px;
-  background: rgba(38, 31, 24, 0.9);
+  background: rgba(38, 31, 24, 0.45);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
 }
 
 .viewer-heading {
-  padding: 2rem;
+  padding: 0.75rem 1.5rem;
+  transform: translateY(-0.75rem);
+  background: rgba(38, 31, 24, 0.62);
+  border-radius: 14px;
 }
 
 .eyebrow {
@@ -82,19 +130,23 @@ main {
 .viewer-heading h1 {
   margin: 0 0 0.75rem;
   color: #fff5df;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(1.4rem, 3vw, 2.25rem);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
 }
 
 .description {
   max-width: 60ch;
   color: #cbbda9;
+  font-size: 0.9rem;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .statue-list-label {
   display: block;
-  margin-top: 1.5rem;
+  margin-top: 0.75rem;
   margin-bottom: 0.5rem;
   color: #fff5df;
+  font-size: 0.85rem;
   font-weight: 700;
 }
 
@@ -150,11 +202,13 @@ main {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-color: #8d6d43 #211b16;
-  background: #efe1c7;
+  background: transparent;
 }
 
 .render-slide {
   position: relative;
+  display: grid;
+  place-items: center;
   flex: 0 0 100%;
   min-height: min(65vw, 620px);
   scroll-snap-align: start;
@@ -162,9 +216,12 @@ main {
 
 .render-slide iframe {
   display: block;
-  width: 100%;
-  min-height: min(65vw, 620px);
+  width: min(52vw, 500px);
+  height: min(55vw, 510px);
+  transform: translateY(-12%);
   border: 0;
+  border-radius: 50% 50% 0 0 / 24% 24% 0 0;
+  clip-path: inset(0 round 50% 50% 0 0 / 24% 24% 0 0);
 }
 
 .render-slide iframe.hidden {
@@ -186,13 +243,19 @@ main {
 
 .viewer-placeholder {
   position: absolute;
-  inset: 0;
+  top: -7%;
+  left: 50%;
+  width: min(52vw, 500px);
+  height: min(55vw, 510px);
+  transform: translateX(-50%);
   display: grid;
   place-content: center;
   gap: 0.75rem;
   padding: 2rem;
   color: #735d43;
-  background: #efe1c7;
+  border-radius: 50% 50% 0 0 / 24% 24% 0 0;
+  background: rgba(239, 225, 199, 0.4);
+  clip-path: inset(0 round 50% 50% 0 0 / 24% 24% 0 0);
   text-align: center;
 }
 
@@ -207,20 +270,23 @@ main {
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem 1.5rem;
+  transform: translateY(-0.5rem);
 }
 
 .status {
   margin: 0;
   color: #cbbda9;
+  font-size: 0.8rem;
 }
 
 .viewer-controls button {
-  padding: 0.7rem 1rem;
+  padding: 0.75rem 1.25rem;
   border: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   color: #211b16;
   background: #d8a85e;
   cursor: pointer;
+  font-size: 0.95rem;
   font-weight: 700;
 }
 
@@ -230,8 +296,28 @@ main {
 }
 
 @media (max-width: 640px) {
+  nav {
+    gap: 0.75rem;
+    padding-inline: 1rem;
+  }
+
+  nav a {
+    font-size: 0.9rem;
+  }
+
+  main:not(.viewer-page) {
+    min-height: calc(100vh - 7rem);
+    padding: 3rem 1.25rem;
+  }
+
   .viewer-heading {
     padding: 1.25rem;
+  }
+
+  .render-slide iframe,
+  .viewer-placeholder {
+    width: min(70vw, 320px);
+    height: min(78vw, 390px);
   }
 
   .statue-list {
