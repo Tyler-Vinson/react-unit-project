@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import '../App.css'
 import '../3d.css'
 
 const SKETCHFAB_API_URL =
