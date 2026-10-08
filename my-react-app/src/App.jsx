@@ -1,34 +1,22 @@
-import ThreeDViewer from './pages/3d'
-import Overview from './pages/overview'
+import './App.css'
+import { BrowserRouter,  Routes, Route } from 'react-router-dom'
+import Navbar from './components/navbar/Navbar'
 import MainRoom from './pages/main-room'
-import Modern from './pages/modern'
 import OldPhotos from './pages/old-photos'
-
-const routes = {
-  '/': Overview,
-  '/3d': ThreeDViewer,
-  '/about': MainRoom,
-  '/main-room': MainRoom,
-  '/modern': Modern,
-  '/Modern': Modern,
-  '/old-photos': OldPhotos,
-  '/OldPhotos': OldPhotos,
-}
+import ThreeD from './pages/3d'
+import Modern from './pages/modern'
 
 function App() {
-  const Page = routes[window.location.pathname] ?? Overview
-
   return (
-    <>
-      <nav aria-label="Primary navigation">
-        <a href="/">Home</a>
-        <a href="/3d">3D statues</a>
-        <a href="/about">About</a>
-        <a href="/old-photos">Old photos</a>
-        <a href="/modern">Modern</a>
-      </nav>
-      <Page />
-    </>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/main-room" element={<MainRoom />} />
+        <Route path="/old-photos" element={<OldPhotos />} />
+        <Route path="/3d" element={<ThreeD />} />
+        <Route path="/modern" element={<Modern />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

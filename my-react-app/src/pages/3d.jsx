@@ -76,6 +76,7 @@ function ThreeDViewer() {
   const [status, setStatus] = useState('Click “Load model” to start the viewer.')
   const [isLoading, setIsLoading] = useState(false)
   const [isReady, setIsReady] = useState(false)
+
   const selectedScan = HISTORICAL_STATUE_SCANS[selectedScanIndex]
 
   useEffect(() => {
@@ -189,7 +190,6 @@ function ThreeDViewer() {
             Created by {selectedScan.creator}.
           </p>
           <p className="statue-list-label">Scroll to view different statue scans</p>
-
         </div>
 
         <div
