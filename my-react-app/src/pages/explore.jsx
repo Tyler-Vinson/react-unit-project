@@ -3,7 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { PointerLockControls, useGLTF, Html, useProgress } from '@react-three/drei'
 import * as THREE from 'three'
 
-const MODEL_URL = `${import.meta.env.BASE_URL}1_VALLEY_VIEW_MALL_main_file.glb`
+const MODEL_URL = `${import.meta.env.BASE_URL}mall.glb`
 const EYE_HEIGHT = 1.7
 const WALK_SPEED = 5
 const RUN_SPEED = 12
