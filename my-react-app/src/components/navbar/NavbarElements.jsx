@@ -1,19 +1,5 @@
-import { NavLink as RouterNavLink } from 'react-router-dom'
-
-export const Nav = ({ children, ...props }) => <nav {...props}>{children}</nav>
-
-export const NavMenu = ({ children }) => <div className="nav-menu">{children}</div>
-
-export const NavLink = ({ activeStyle, ...props }) => {
-  const resolvedActiveStyle =
-    activeStyle && typeof activeStyle === 'object' ? activeStyle : undefined
-
-  return (
-    <RouterNavLink
-      {...props}
-      style={({ isActive }) =>
-        isActive && resolvedActiveStyle ? resolvedActiveStyle : undefined
-      }
-    />
-  )
-}
+<nav className="navbar">
+  <a href="main-room.jsx" className="nav-link">
+    <img src="assets/doorclosed.jpg" alt="photo of door closed"/>
+    </a>
+</nav>
