@@ -1,5 +1,4 @@
 import { NavLink as RouterNavLink } from "react-router-dom";
-
 export function Nav({ children }) {
     return <nav>{children}</nav>;
 }
