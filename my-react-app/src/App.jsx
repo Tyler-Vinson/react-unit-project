@@ -4,7 +4,7 @@ import Navbar from './components/navbar/Navbar'
 import MusicPlayer from './components/navbar/music'
 import MainRoom from './pages/main-room'
 import OldPhotos from './pages/old-photos'
-import ThreeD from './pages/home'
+import ThreeD from './pages/explore'
 import Modern from './pages/modern'
 
 function App() {
