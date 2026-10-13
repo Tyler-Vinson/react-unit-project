@@ -8,19 +8,24 @@ function MusicPlayer() {
     const audio = audioRef.current
 
     if (!audio) {
-      return undefined
+      return
     }
 
     audio.volume = 0.35
     const startMusic = () => {
-      audio.play().catch(() => {})
-      window.removeEventListener('pointerdown', startMusic)
-      window.removeEventListener('keydown', startMusic)
+      audio.play()
+        .then(() => {
+          window.removeEventListener('pointerdown', startMusic)
+          window.removeEventListener('keydown', startMusic)
+        })
+        .catch((error) => {
+          console.error('Unable to play background music.', error)
+        })
     }
 
     audio.play().catch(() => {
-      window.addEventListener('pointerdown', startMusic, { once: true })
-      window.addEventListener('keydown', startMusic, { once: true })
+      window.addEventListener('pointerdown', startMusic)
+      window.addEventListener('keydown', startMusic)
     })
 
     return () => {
@@ -30,7 +35,7 @@ function MusicPlayer() {
     }
   }, [])
 
-  return <audio ref={audioRef} src={musicFile} autoPlay loop preload="auto" aria-hidden="true" />
+  return <audio ref={audioRef} src={musicFile} loop preload="auto" aria-hidden="true" />
 }
 
 export default MusicPlayer
