@@ -6,7 +6,8 @@ const MainRoom = () => (
       <p id="description">Explore a curated collection of historical statue scans. Ranging from Michelangelo to Rodin.</p>
     </div>
     <a href="home.jsx" target="_blank">
-        <img src="assets/doorclosed.jpg" alt="photo of door closed"/>    
+        <img className="button"src="assets/doorclosed.jpg" alt="photo of door closed"/>
+          
     </a>
   </main>
     
