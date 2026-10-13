@@ -8,7 +8,7 @@ THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree
 THREE.Mesh.prototype.raycast = acceleratedRaycast
 
-const MODEL_URL = `${import.meta.env.BASE_URL}mall.glb`
+const MODEL_URL = `${import.meta.env.BASE_URL}mall-full.glb`
 const EYE_HEIGHT = 1.7
 const RADIUS = 0.4
 const STEP_HEIGHT = 0.4
