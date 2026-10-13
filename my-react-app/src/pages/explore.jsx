@@ -27,6 +27,59 @@ function castFirstHit(objects, origin, direction, far) {
   return raycaster.intersectObjects(objects, false)[0]
 }
 
+const allHitsCaster = new THREE.Raycaster()
+const DIRS = Array.from({ length: 8 }, (_, i) => {
+  const a = (i / 8) * Math.PI * 2
+  return new THREE.Vector3(Math.cos(a), 0, Math.sin(a))
+})
+
+function findIndoorSpawn(meshes, bounds) {
+  const STEP = 3
+  const candidates = []
+  const down = new THREE.Vector3(0, -1, 0)
+  const top = bounds.max.y + 1
+
+  for (let x = bounds.min.x; x <= bounds.max.x; x += STEP) {
+    for (let z = bounds.min.z; z <= bounds.max.z; z += STEP) {
+      allHitsCaster.set(new THREE.Vector3(x, top, z), down)
+      allHitsCaster.far = Infinity
+      const hits = allHitsCaster.intersectObjects(meshes, false)
+      // Walk surfaces top-down; an upward-facing surface with a ceiling 2.5-10m above is a floor
+      for (let i = 0; i < hits.length - 1; i++) {
+        const ceiling = hits[i]
+        const floor = hits[i + 1]
+        const gap = ceiling.point.y - floor.point.y
+        if (gap < 2.5 || gap > 10 || !floor.face) continue
+        const n = floor.face.normal.clone().transformDirection(floor.object.matrixWorld)
+        if (n.y < 0.7) continue
+        candidates.push(new THREE.Vector3(x, floor.point.y, z))
+      }
+    }
+  }
+
+  const open = candidates.filter((c) => {
+    const origin = new THREE.Vector3(c.x, c.y + 1, c.z)
+    return DIRS.every((d) => {
+      allHitsCaster.set(origin, d)
+      allHitsCaster.far = 2
+      allHitsCaster.firstHitOnly = true
+      return allHitsCaster.intersectObjects(meshes, false).length === 0
+    })
+  })
+  const pool = open.length ? open : candidates
+  if (!pool.length) return bounds.getCenter(new THREE.Vector3())
+
+  // Prefer the most common floor level (the main concourse), nearest to the middle of that level
+  const levels = new Map()
+  pool.forEach((c) => {
+    const key = Math.round(c.y)
+    levels.set(key, [...(levels.get(key) ?? []), c])
+  })
+  const main = [...levels.values()].sort((a, b) => b.length - a.length)[0]
+  const mid = main.reduce((sum, c) => sum.add(c), new THREE.Vector3()).divideScalar(main.length)
+  return main.reduce((best, c) => (c.distanceToSquared(mid) < best.distanceToSquared(mid) ? c : best))
+}
+
 function Loader() {
   const { progress } = useProgress()
   return (
@@ -94,13 +147,11 @@ function Player({ collidables, bounds }) {
 
   const castRay = (origin, direction, far) => castFirstHit(collidables, origin, direction, far)
 
-  // Spawn on the floor under the model's center
+  // Spawn on an indoor floor: a spot with a ceiling overhead and open space around it
   useEffect(() => {
-    const center = bounds.getCenter(new THREE.Vector3())
-    const hit = castRay(new THREE.Vector3(center.x, bounds.max.y + 1, center.z), new THREE.Vector3(0, -1, 0), Infinity)
-    feet.current.set(center.x, hit ? hit.point.y : bounds.min.y, center.z)
+    const spawn = findIndoorSpawn(collidables, bounds)
+    feet.current.copy(spawn)
     velocity.current.set(0, 0, 0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collidables, bounds])
 
   useFrame((_, rawDelta) => {
