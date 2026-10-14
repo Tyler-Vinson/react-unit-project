@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { PointerLockControls, Sky, useGLTF, Html, useProgress } from '@react-three/drei'
+import { PointerLockControls, Sky, useGLTF, useProgress } from '@react-three/drei'
 import * as THREE from 'three'
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh'
 
@@ -9,6 +9,7 @@ THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree
 THREE.Mesh.prototype.raycast = acceleratedRaycast
 
 const MODEL_URL = `${import.meta.env.BASE_URL}mall-full.glb`
+const LOWER_FLOOR_STORES_URL = `${import.meta.env.BASE_URL}lower-floor-stores.glb`
 const EYE_HEIGHT = 1.7
 const RADIUS = 0.4
 const STEP_HEIGHT = 0.4
@@ -80,47 +81,51 @@ function findIndoorSpawn(meshes, bounds) {
   return main.reduce((best, c) => (c.distanceToSquared(mid) < best.distanceToSquared(mid) ? c : best))
 }
 
-function Loader() {
-  const { progress } = useProgress()
-  return (
-    <Html center style={{ color: 'white', whiteSpace: 'nowrap', font: '16px sans-serif' }}>
-      Loading museum… {progress.toFixed(0)}%
-    </Html>
-  )
-}
-
 function Model({ onReady }) {
   const { scene } = useGLTF(MODEL_URL)
+  const { scene: lowerFloorStores } = useGLTF(LOWER_FLOOR_STORES_URL)
   const gl = useThree((s) => s.gl)
 
-  const collidables = useMemo(() => {
+  const { collidables, bounds } = useMemo(() => {
     const meshes = []
     const maxAniso = gl.capabilities.getMaxAnisotropy()
-    scene.traverse((obj) => {
-      if (!obj.isMesh) return
-      obj.geometry.computeBoundsTree()
-      obj.castShadow = true
-      obj.receiveShadow = true
-      const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
-      mats.forEach((m) => {
-        for (const key of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap']) {
-          if (m[key]) {
-            m[key].anisotropy = maxAniso
-            m[key].needsUpdate = true
+    const models = [scene, lowerFloorStores]
+
+    models.forEach((model) => {
+      model.updateMatrixWorld(true)
+      model.traverse((obj) => {
+        if (!obj.isMesh) return
+        obj.geometry.computeBoundsTree()
+        obj.castShadow = true
+        obj.receiveShadow = true
+        const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
+        mats.forEach((m) => {
+          for (const key of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap']) {
+            if (m[key]) {
+              m[key].anisotropy = maxAniso
+              m[key].needsUpdate = true
+            }
           }
-        }
+        })
+        meshes.push(obj)
       })
-      meshes.push(obj)
     })
-    scene.updateMatrixWorld(true)
-    return meshes
-  }, [scene, gl])
+    const bounds = new THREE.Box3()
+      .setFromObject(scene)
+      .union(new THREE.Box3().setFromObject(lowerFloorStores))
+    return { collidables: meshes, bounds }
+  }, [scene, lowerFloorStores, gl])
 
   useEffect(() => {
-    onReady(collidables, new THREE.Box3().setFromObject(scene))
-  }, [collidables, scene, onReady])
+    onReady(collidables, bounds)
+  }, [collidables, bounds, onReady])
 
-  return <primitive object={scene} />
+  return (
+    <>
+      <primitive object={scene} />
+      <primitive object={lowerFloorStores} />
+    </>
+  )
 }
 
 function Player({ collidables, bounds }) {
@@ -237,6 +242,7 @@ function Player({ collidables, bounds }) {
 export default function Explore() {
   const [scan, setScan] = useState(null)
   const [playing, setPlaying] = useState(false)
+  const { active, progress } = useProgress()
 
   const handleReady = useMemo(() => (meshes, box) => setScan({ meshes, box }), [])
 
@@ -270,7 +276,7 @@ export default function Explore() {
           shadow-camera-far={300}
           shadow-bias={-0.0005}
         />
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={null}>
           <Model onReady={handleReady} />
         </Suspense>
         {scan && <Player collidables={scan.meshes} bounds={scan.box} />}
@@ -294,8 +300,12 @@ export default function Explore() {
             gap: 8,
           }}
         >
-          <h2 style={{ margin: 0 }}>Click to explore</h2>
-          <p style={{ margin: 0 }}>WASD / arrows to move · Mouse to look · Space to jump · Shift to run · Esc to pause</p>
+          <h2 style={{ margin: 0 }}>
+            {active ? `Loading museum… ${progress.toFixed(0)}%` : 'Click to explore'}
+          </h2>
+          <p style={{ margin: 0 }}>
+            WASD / arrows to move · Mouse to look · Space to jump · Shift to run · Esc to pause
+          </p>
         </div>
       )}
 
