@@ -1,0 +1,236 @@
+main.main-room {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 4rem 1.5rem;
+  box-sizing: border-box;
+  text-align: center;
+  background: linear-gradient(180deg, #1e1d1b 0%, #30241d 100%);
+  color: #f7ead8;
+}
+
+#text {
+  max-width: 38rem;
+}
+
+#text-title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+}
+
+#credit,
+#description {
+  margin: 0.5rem 0;
+}
+
+.door-link {
+  display: inline-block;
+  perspective: 900px;
+  border-radius: 0.25rem;
+}
+
+.door-link:focus-visible {
+  outline: 3px solid #f4c96b;
+  outline-offset: 0.5rem;
+}
+
+.door-frame {
+  display: block;
+  padding: 0.75rem;
+  background: #49301f;
+  border: 0.4rem solid #8e542f;
+  border-bottom-width: 0.7rem;
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 35%);
+}
+
+.door {
+  display: block;
+  width: min(30vw, 10rem);
+  height: auto;
+  transform-origin: left center;
+  transition: transform 650ms ease, filter 650ms ease;
+  backface-visibility: hidden;
+}
+
+.door-link:hover .door,
+.door-link:focus-visible .door {
+  transform: perspective(900px) rotateY(-70deg);
+  filter: brightness(0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door {
+    transition: none;
+  }
+}
+
+main.three-doors-room {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 5rem 1rem 2rem;
+  box-sizing: border-box;
+  background: #171614;
+}
+
+.room-scene {
+  position: relative;
+  width: min(100%, 64rem);
+  overflow: hidden;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 50%);
+}
+
+.room-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.room-door {
+  position: absolute;
+  z-index: 2;
+}
+
+.room-door-left {
+  top: 32%;
+  left: 16.8%;
+  width: 5%;
+  height: 47%;
+}
+
+.room-door-center {
+  top: 39%;
+  left: 45.7%;
+  width: 7.8%;
+  height: 31%;
+}
+
+.room-door-right {
+  top: 32%;
+  right: 18%;
+  width: 5.3%;
+  height: 47%;
+}
+
+.room-door-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  perspective: 700px;
+}
+
+.door-opening {
+  position: absolute;
+  inset: 4% 18%;
+  z-index: 0;
+  background: #fff;
+  border: 2px solid #693718;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.room-door-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  transform-origin: right center;
+  opacity: 0;
+  transition: transform 650ms ease, opacity 150ms ease, filter 650ms ease;
+  backface-visibility: hidden;
+}
+
+.room-door-link:hover .door-opening {
+  opacity: 1;
+}
+
+.room-door-center .door-opening {
+  inset: 5% 10%;
+  border: 0;
+}
+
+.room-door-center .room-door-panel {
+  transform-origin: right center;
+}
+
+.room-door-center .room-door-link:hover .room-door-panel {
+  opacity: 1;
+  transform: perspective(700px) rotateY(-70deg);
+  filter: brightness(0.8);
+}
+
+.room-door-left .room-door-panel {
+  transform-origin: left center;
+}
+
+.room-door-left .room-door-link:hover .room-door-panel {
+  opacity: 1;
+  transform: perspective(700px) rotateY(-70deg) scale(0.88);
+  filter: brightness(0.8);
+}
+
+.room-door-right .room-door-panel {
+  transform-origin: right center;
+}
+
+.room-door-right .room-door-link:hover .room-door-panel {
+  opacity: 1;
+  transform: perspective(700px) rotateY(70deg) scale(0.88);
+  filter: brightness(0.8);
+}
+
+.room-door-link:focus-visible {
+  outline: 2px solid #f4c96b;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .room-door-panel {
+    transition: opacity 150ms ease;
+  }
+}
+
+.exit-door-link {
+  position: absolute;
+  top: 0.25rem;
+  right: 1rem;
+  display: block;
+  width: 1.25rem;
+  perspective: 700px;
+}
+
+.exit-door-link:focus-visible {
+  outline: 2px solid #f4c96b;
+  outline-offset: 2px;
+}
+
+.exit-door {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: left center;
+  transition: transform 650ms ease, filter 650ms ease;
+  backface-visibility: hidden;
+}
+
+.exit-door-link:hover .exit-door,
+.exit-door-link:focus-visible .exit-door {
+  transform: perspective(700px) rotateY(-70deg);
+  filter: brightness(0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exit-door {
+    transition: none;
+  }
+}

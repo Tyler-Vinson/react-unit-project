@@ -1,20 +1,23 @@
-import { Link } from "react-router-dom";
+import doorClosed from '../assets/doorclosed.png'
+import { Link } from 'react-router-dom'
 
 const MainRoom = () => (
-  <main>
+  <main className="main-room">
     <div id="text">
       <h1 id="text-title">The Abandoned Internet Museum</h1>
       <p id="credit">Designed by: Tyler Vinson and Germaine Reed</p>
       <p id="description">Explore a curated collection of historical statue scans. Ranging from Michelangelo to Rodin.</p>
     </div>
-    <Link to="/3d">
-        <img className="button"src="assets/doorclosed.png" alt="photo of door closed"/>
-    </Link>
-    <Link to="/3d">
-        <button type="button">Explore the Museum</button>
+    <Link
+      className="door-link"
+      to="/three-doors"
+      aria-label="Open the museum door"
+    >
+      <span className="door-frame">
+        <img className="door" src={doorClosed} alt="Closed museum door" />
+      </span>
     </Link>
   </main>
-    
 )
 
 export default MainRoom
