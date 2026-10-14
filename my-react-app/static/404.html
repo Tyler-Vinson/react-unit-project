@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=/react-unit-project/" />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        const base = '/react-unit-project'
+        const current = window.location.pathname
+
+        if (current === base || current === `${base}/`) {
+          window.location.replace(`${base}/`)
+          return
+        }
+
+        if (current.startsWith(base)) {
+          const route = current.slice(base.length) || '/'
+          if (route !== '/' && route !== '/index.html') {
+            sessionStorage.setItem('route', route)
+            window.location.replace(`${base}/?route=${encodeURIComponent(route)}`)
+            return
+          }
+        }
+
+        window.location.replace(`${base}/`)
+      })()
+    </script>
+  </body>
+</html>
