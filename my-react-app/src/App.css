@@ -59,7 +59,7 @@
 
 .door-link:hover .door,
 .door-link:focus-visible .door {
-  transform: perspective(900px) rotateY(-70deg);
+  transform: perspective(900px) rotateY(70deg);
   filter: brightness(0.8);
 }
 
