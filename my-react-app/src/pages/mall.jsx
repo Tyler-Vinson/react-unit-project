@@ -49,42 +49,95 @@ function scoreSpawn(meshes, x, floorY, z) {
 async function findSpawn(meshes, bounds, onProgress) {
   const size = bounds.getSize(new THREE.Vector3())
   const step = Math.max(3, Math.max(size.x, size.z) / 80)
-  const best = { score: -1, position: null, yaw: 0 }
+  const columns = Math.floor(size.x / step) + 1
+  const rows = Math.floor(size.z / step) + 1
   const ray = new THREE.Raycaster()
-  ray.firstHitOnly = false
-  const rows = Math.ceil(size.z / step)
+  const cells = new Map()
 
-  for (let row = 0; row <= rows; row += 1) {
+  for (let row = 0; row < rows; row += 1) {
     const z = bounds.min.z + row * step
-    for (let x = bounds.min.x; x <= bounds.max.x; x += step) {
+    for (let column = 0; column < columns; column += 1) {
+      const x = bounds.min.x + column * step
       ray.set(new THREE.Vector3(x, bounds.max.y + 1, z), down)
       ray.far = size.y + 2
       const hits = ray.intersectObjects(meshes, false)
-      for (let index = 0; index < Math.min(1, hits.length - 1); index += 1) {
-        const ceiling = hits[index]
-        const floor = hits[index + 1]
-        const clearance = ceiling.point.y - floor.point.y
-        if (clearance < 5.2 || clearance > 16 || !floor.face) continue
-        const normal = floor.face.normal.clone().transformDirection(floor.object.matrixWorld)
-        if (normal.y < 0.9) continue
-        const result = scoreSpawn(meshes, x, floor.point.y, z)
-        if (result && result.score > best.score) {
-          best.score = result.score
-          best.position = new THREE.Vector3(x, floor.point.y, z)
-          best.yaw = Math.atan2(-Math.cos(result.angle), -Math.sin(result.angle))
-        }
-      }
+      if (hits.length < 2) continue
+      const [ceiling, floor] = hits
+      const clearance = ceiling.point.y - floor.point.y
+      if (clearance < EYE_HEIGHT * 1.5 || clearance > 16 || !floor.face) continue
+      const normal = floor.face.normal.clone().transformDirection(floor.object.matrixWorld)
+      if (normal.y < 0.9) continue
+      cells.set(row * columns + column, { x, z, y: floor.point.y, row, column })
     }
-    onProgress(row / rows)
+    onProgress((row / rows) * 0.5)
     await nextFrame()
   }
 
+  const isConnected = (from, to) => {
+    if (Math.abs(from.y - to.y) > STEP_UP) return false
+    const origin = new THREE.Vector3(from.x, from.y + EYE_HEIGHT / 2, from.z)
+    const direction = new THREE.Vector3(to.x - from.x, 0, to.z - from.z)
+    const distance = direction.length()
+    ray.set(origin, direction.normalize())
+    ray.far = distance
+    return ray.intersectObjects(meshes, false).length === 0
+  }
+
+  const visited = new Set()
+  let largest = []
+  let processed = 0
+  for (const [key, start] of cells) {
+    if (visited.has(key)) continue
+    const region = []
+    const queue = [[key, start]]
+    visited.add(key)
+    while (queue.length) {
+      const [, cell] = queue.pop()
+      region.push(cell)
+      for (const [dRow, dColumn] of [[0, 1], [1, 0], [0, -1], [-1, 0]]) {
+        const row = cell.row + dRow
+        const column = cell.column + dColumn
+        if (row < 0 || column < 0 || column >= columns) continue
+        const neighborKey = row * columns + column
+        const neighbor = cells.get(neighborKey)
+        if (!neighbor || visited.has(neighborKey)) continue
+        if (!isConnected(cell, neighbor)) continue
+        visited.add(neighborKey)
+        queue.push([neighborKey, neighbor])
+      }
+      processed += 1
+      if (processed % 300 === 0) {
+        onProgress(0.5 + 0.5 * Math.min(processed / cells.size, 1))
+        await nextFrame()
+      }
+    }
+    if (region.length > largest.length) largest = region
+  }
+
+  const best = { score: -1, position: null, yaw: 0 }
+  const centroid = largest.reduce(
+    (sum, cell) => sum.add(new THREE.Vector3(cell.x, cell.y, cell.z)),
+    new THREE.Vector3(),
+  ).divideScalar(Math.max(largest.length, 1))
+  for (const cell of largest) {
+    const result = scoreSpawn(meshes, cell.x, cell.y, cell.z)
+    if (result && result.score > best.score) {
+      best.score = result.score
+      best.position = new THREE.Vector3(cell.x, cell.y, cell.z)
+      best.yaw = Math.atan2(-Math.cos(result.angle), -Math.sin(result.angle))
+    }
+  }
+
   if (!best.position) {
-    best.position = new THREE.Vector3(
-      (bounds.min.x + bounds.max.x) / 2,
-      bounds.max.y + 1,
-      (bounds.min.z + bounds.max.z) / 2,
+    const fallback = largest.reduce(
+      (closest, cell) =>
+        Math.hypot(cell.x - centroid.x, cell.z - centroid.z) <
+        Math.hypot(closest.x - centroid.x, closest.z - centroid.z)
+          ? cell
+          : closest,
+      largest[0] ?? { x: centroid.x, y: bounds.max.y + 1, z: centroid.z },
     )
+    best.position = new THREE.Vector3(fallback.x, fallback.y, fallback.z)
   }
   return best
 }
