@@ -4,7 +4,6 @@ import Navbar from './components/navbar/Navbar'
 import MusicPlayer from './components/navbar/music'
 import MainRoom from './pages/main-room'
 import OldPhotos from './pages/old-photos'
-import ThreeD from './pages/explore'
 import Modern from './pages/modern'
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
         <Route path="/" element={<MainRoom />} />
         <Route path="/main-room" element={<MainRoom />} />
         <Route path="/old-photos" element={<OldPhotos />} />
-        <Route path="/3d" element={<ThreeD />} />
         <Route path="/modern" element={<Modern />} />
       </Routes>
     </BrowserRouter>
