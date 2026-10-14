@@ -5,6 +5,7 @@ import MusicPlayer from './components/navbar/music'
 import MainRoom from './pages/main-room'
 import OldPhotos from './pages/old-photos'
 import Modern from './pages/modern'
+import MallExplorer from './pages/mall'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/main-room" element={<MainRoom />} />
         <Route path="/old-photos" element={<OldPhotos />} />
         <Route path="/modern" element={<Modern />} />
+        <Route path="/3d" element={<MallExplorer />} />
       </Routes>
     </BrowserRouter>
   )
