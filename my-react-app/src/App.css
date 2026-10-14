@@ -52,14 +52,14 @@
   display: block;
   width: min(30vw, 10rem);
   height: auto;
-  transform-origin: left center;
+  transform-origin: right center;
   transition: transform 650ms ease, filter 650ms ease;
   backface-visibility: hidden;
 }
 
 .door-link:hover .door,
 .door-link:focus-visible .door {
-  transform: perspective(900px) rotateY(70deg);
+  transform: perspective(900px) rotateY(-70deg);
   filter: brightness(0.8);
 }
 
