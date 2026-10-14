@@ -10,6 +10,50 @@ THREE.Mesh.prototype.raycast = acceleratedRaycast
 
 const MODEL_URL = `${import.meta.env.BASE_URL}mall-full.glb`
 const LOWER_FLOOR_STORES_URL = `${import.meta.env.BASE_URL}lower-floor-stores.glb`
+const STORE_WINGS = [
+  { angle: 0, ids: [1, 2, 3, 4] },
+  { angle: 45, ids: [5, 6, 7] },
+  { angle: 90, ids: [8, 9, 10, 11] },
+  { angle: 135, ids: [12, 13, 14] },
+  { angle: 180, ids: [15, 16, 17, 18] },
+  { angle: 225, ids: [19, 20, 21] },
+  { angle: 270, ids: [22, 23, 24, 25] },
+  { angle: 315, ids: [26, 27, 28] },
+]
+const STORE_LAYOUT = new Map()
+const STORE_CENTER = new THREE.Vector3(0, 2.5, -38)
+
+// The reference plan places the storefronts on the eight wings around the atrium.
+STORE_WINGS.forEach(({ angle, ids }) => {
+  const radians = THREE.MathUtils.degToRad(angle)
+  const directionX = Math.sin(radians)
+  const directionZ = Math.cos(radians)
+  const sideX = Math.cos(radians)
+  const sideZ = -Math.sin(radians)
+  const radii = ids.length === 4 ? [48, 48, 80, 80] : [52, 52, 84]
+  const sides = [1, -1, 1, -1]
+
+  ids.forEach((id, index) => {
+    const side = sides[index]
+    STORE_LAYOUT.set(
+      id === 1 ? '1_store_the_oldwst_view' : `${id}_store_the_oldest_view`,
+      {
+        center: new THREE.Vector3(
+          STORE_CENTER.x + directionX * radii[index] + sideX * side * 13,
+          STORE_CENTER.y,
+          STORE_CENTER.z + directionZ * radii[index] + sideZ * side * 13,
+        ),
+        yaw: radians - side * Math.PI / 2,
+      },
+    )
+  })
+})
+
+const STORE_SIGN_ANCHORS = new Map([
+  ['store_tex_2', '23_store_the_oldest_view'],
+  ['store_text', '11_store_the_oldest_view'],
+  ['store_text_3', '1_store_the_oldwst_view'],
+])
 const EYE_HEIGHT = 1.7
 const RADIUS = 0.4
 const STEP_HEIGHT = 0.4
@@ -81,6 +125,68 @@ function findIndoorSpawn(meshes, bounds) {
   return main.reduce((best, c) => (c.distanceToSquared(mid) < best.distanceToSquared(mid) ? c : best))
 }
 
+function getWorldBoundsCenter(object) {
+  object.updateWorldMatrix(true, true)
+  return new THREE.Box3().setFromObject(object).getCenter(new THREE.Vector3())
+}
+
+function placeObjectAt(object, center, yaw) {
+  const localCenter = object.worldToLocal(getWorldBoundsCenter(object))
+  const rotation = new THREE.Quaternion().setFromAxisAngle(
+    new THREE.Vector3(0, 1, 0),
+    yaw,
+  )
+  const offset = localCenter
+    .multiply(object.scale)
+    .applyQuaternion(rotation)
+
+  object.quaternion.copy(rotation)
+  object.position.copy(center).sub(offset)
+  object.updateMatrix()
+}
+
+function arrangeStorefronts(models) {
+  const objects = new Map()
+  models.forEach((model) => {
+    model.children.forEach((object) => objects.set(object.name, object))
+  })
+  const originalCenters = new Map()
+  const originalYaws = new Map()
+
+  objects.forEach((object, name) => {
+    if (!STORE_LAYOUT.has(name) && !STORE_SIGN_ANCHORS.has(name)) return
+    originalCenters.set(name, getWorldBoundsCenter(object))
+    originalYaws.set(name, object.rotation.y)
+  })
+
+  STORE_LAYOUT.forEach(({ center, yaw }, name) => {
+    const object = objects.get(name)
+    if (object) placeObjectAt(object, center, yaw)
+  })
+
+  STORE_SIGN_ANCHORS.forEach((anchorName, signName) => {
+    const sign = objects.get(signName)
+    const anchor = objects.get(anchorName)
+    const anchorLayout = STORE_LAYOUT.get(anchorName)
+    if (!sign || !anchor || !anchorLayout) return
+
+    const yawDelta = anchorLayout.yaw - originalYaws.get(anchorName)
+    const relativePosition = originalCenters
+      .get(signName)
+      .clone()
+      .sub(originalCenters.get(anchorName))
+      .applyAxisAngle(new THREE.Vector3(0, 1, 0), yawDelta)
+
+    placeObjectAt(
+      sign,
+      getWorldBoundsCenter(anchor).add(relativePosition),
+      originalYaws.get(signName) + yawDelta,
+    )
+  })
+
+  models.forEach((model) => model.updateMatrixWorld(true))
+}
+
 function Model({ onReady }) {
   const { scene } = useGLTF(MODEL_URL)
   const { scene: lowerFloorStores } = useGLTF(LOWER_FLOOR_STORES_URL)
@@ -91,6 +197,7 @@ function Model({ onReady }) {
     const maxAniso = gl.capabilities.getMaxAnisotropy()
     const models = [scene, lowerFloorStores]
 
+    arrangeStorefronts(models)
     models.forEach((model) => {
       model.updateMatrixWorld(true)
       model.traverse((obj) => {
@@ -100,12 +207,11 @@ function Model({ onReady }) {
         obj.receiveShadow = true
         const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
         mats.forEach((m) => {
-          for (const key of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap']) {
-            if (m[key]) {
-              m[key].anisotropy = maxAniso
-              m[key].needsUpdate = true
-            }
-          }
+          Object.values(m).forEach((value) => {
+            if (!value?.isTexture) return
+            value.anisotropy = maxAniso
+            value.needsUpdate = true
+          })
         })
         meshes.push(obj)
       })
