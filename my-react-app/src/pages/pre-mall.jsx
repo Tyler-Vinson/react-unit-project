@@ -9,13 +9,15 @@ import doorClosed from "../assets/doorclosed.png"
 
 export default function PreMall() {
   return (
-    <>
+    <main className="pre-mall-page">
+      <section className="pre-mall-intro">
       <div>
         <img src={valleyMall} alt="Valley View Center" />
         <h1>Valley View Center</h1>
         <h2>Demolished in 2023</h2>
-        <p>The Valley View Center was a shopping mall located in the United States. It was demolished in 2023 after years of decline. <br /> This mall is known for serving as the setting for one of director Kane Parsons’s YouTube series. Parsons is known for pioneering the “liminal spaces” genre, and some would say that his success with the series eventually led to his 2026 film, Backrooms.</p>
-      </div>
+        <p>The Valley View Center was a shopping mall located in the United States. It was demolished in 2023 after years of decline. <br /> This mall is known for serving as the setting for one of director Kane Parsons's YouTube series. Parsons is known for pioneering the “liminal spaces” genre, and some would say that his success with the series eventually led to his 2026 film, Backrooms.</p>
+        </div>
+      </section>
       <div className="pre-mall-photos">
         <img src={kanepixels} alt="kane parsons" 
         style={{ display: 'block', marginBottom: '8px' }}/>
@@ -46,6 +48,7 @@ export default function PreMall() {
           </span>
         </Link>
       </div>
-    </>
+    </main>
+
   )
 }
