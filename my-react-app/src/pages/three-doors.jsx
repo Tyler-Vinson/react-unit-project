@@ -14,33 +14,30 @@ const ThreeDoors = () => (
         alt="Museum hallway with three closed doors"
       />
       <div className="room-door room-door-left">
-        {/* Replace this placeholder destination when the left door's room is ready. */}
         <Link
           className="room-door-link"
           to="/pre-mall"
-          aria-label="Left door destination placeholder"
+          aria-label="Explore Valley View Center"
         >
           <span className="door-opening" aria-hidden="true" />
           <img className="room-door-panel" src={leftDoor} alt="" />
         </Link>
       </div>
       <div className="room-door room-door-center">
-        {/* Replace this placeholder destination when the center door's room is ready. */}
         <Link
           className="room-door-link"
           to="/pre-slender"
-          aria-label="Center door destination placeholder"
+          aria-label="Explore Slender Man"
         >
           <span className="door-opening" aria-hidden="true" />
           <img className="room-door-panel" src={centerPanel} alt="" />
         </Link>
       </div>
       <div className="room-door room-door-right">
-        {/* Replace this placeholder destination when the right door's room is ready. */}
         <Link
           className="room-door-link"
           to="/pre-witch"
-          aria-label="Right door destination placeholder"
+          aria-label="Explore The Blair Witch Project"
         >
           <span className="door-opening" aria-hidden="true" />
           <img className="room-door-panel" src={rightDoor} alt="" />
