@@ -1,3 +1,30 @@
+.music-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid #d8c5a3;
+  border-radius: 50%;
+  background: #171411;
+  color: #fff5df;
+  cursor: pointer;
+}
+
+.music-toggle:hover,
+.music-toggle:focus-visible {
+  background: #49301f;
+}
+
+.music-toggle:focus-visible {
+  outline: 3px solid #f4c96b;
+  outline-offset: 3px;
+}
+
  .main-room {
   min-height: 100vh;
   display: flex;
