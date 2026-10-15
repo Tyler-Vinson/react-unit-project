@@ -6,6 +6,9 @@ import OldPhotos from './pages/old-photos'
 import Modern from './pages/modern'
 import MallExplorer from './pages/mall'
 import ThreeDoors from './pages/three-doors'
+import PreMall from './pages/pre-mall'
+import PreSlender from './pages/pre-slender'
+import PreWitch from './pages/pre-witch'
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
         <Route path="/" element={<MainRoom />} />
         <Route path="/main-room" element={<MainRoom />} />
         <Route path="/three-doors" element={<ThreeDoors />} />
+        <Route path="/pre-mall" element={<PreMall />} />
+        <Route path="/pre-slender" element={<PreSlender />} />
+        <Route path="/pre-witch" element={<PreWitch />} />
         <Route path="/old-photos" element={<OldPhotos />} />
         <Route path="/modern" element={<Modern />} />
         <Route path="/3d" element={<MallExplorer />} />
