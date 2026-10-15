@@ -40,11 +40,12 @@ export default function PreMall() {
       </div>
       <div>
         <Link
-          to="/mall"
+          to="/3d"
           className="door-link"
+          aria-label="Enter the mall"
         >
           <span className="door-frame">
-            <img className="door" src={doorClosed} alt="Closed museum door" />
+            <img className="door" src={doorClosed} alt="Closed door to the mall" />
           </span>
         </Link>
       </div>

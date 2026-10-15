@@ -1,5 +1,5 @@
 import doorClosed from '../assets/doorclosed.png'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 const MainRoom = () => (
   <main className="main-room">
