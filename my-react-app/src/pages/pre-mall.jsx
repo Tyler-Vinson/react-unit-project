@@ -6,6 +6,7 @@ import viewOutside from "../assets/view-outside.jpg"
 import eldestView from "../assets/eldest-view.jpeg"
 import doorClosed from "../assets/doorclosed.png"
 
+
 export default function PreMall() {
   return (
     <>
@@ -37,9 +38,8 @@ export default function PreMall() {
       </div>
       <div>
         <Link
+          to="/mall"
           className="door-link"
-          to="/three-doors"
-          aria-label="Open the museum door"
         >
           <span className="door-frame">
             <img className="door" src={doorClosed} alt="Closed museum door" />
