@@ -9,9 +9,6 @@ const MainRoom = () => (
       <p id="description">
         Explore the abandoned Valley View Mall in a first-person 3D experience.
       </p>
-      <Link className="mall-entry-link" to="/3d">
-        Enter the mall
-      </Link>
     </div>
     <Link
       className="door-link"
