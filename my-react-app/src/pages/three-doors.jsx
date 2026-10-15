@@ -17,7 +17,7 @@ const ThreeDoors = () => (
         {/* Replace this placeholder destination when the left door's room is ready. */}
         <Link
           className="room-door-link"
-          to="#"
+          to="/pre-mall"
           aria-label="Left door destination placeholder"
         >
           <span className="door-opening" aria-hidden="true" />
@@ -28,7 +28,7 @@ const ThreeDoors = () => (
         {/* Replace this placeholder destination when the center door's room is ready. */}
         <Link
           className="room-door-link"
-          to="#"
+          to="/pre-slender"
           aria-label="Center door destination placeholder"
         >
           <span className="door-opening" aria-hidden="true" />
@@ -39,7 +39,7 @@ const ThreeDoors = () => (
         {/* Replace this placeholder destination when the right door's room is ready. */}
         <Link
           className="room-door-link"
-          to="#"
+          to="/pre-witch"
           aria-label="Right door destination placeholder"
         >
           <span className="door-opening" aria-hidden="true" />

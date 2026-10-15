@@ -1,0 +1,29 @@
+import "../pre-slender.css"
+
+export default function PreSlender() {
+  return (
+    <>
+      <div>
+        <h1>Slender Man</h1>
+        <h2>Created in 2009</h2>
+        <p>Slender Man is a fictional supernatural character that originated as an internet Creepypasta <br /> The character is depicted as a tall, faceless figure in a black suit, often associated with stalking, abduction, and psychological horror. This is the first creepypasta to gain widespread non-internet attention, due to the stabbing incident involving two young girls in 2014.</p>
+      </div>
+      <div className="pre-slender-photos">
+        <img src="../assets/pre-slender-photo1.jpg" alt="Slender Man" 
+        style={{ display: 'block', marginBottom: '8px' }}/>
+        <p style={{ margin: 0 }}>Photo of Slender Man</p>
+        <img src="../assets/pre-slender-photo2.jpg" alt="Slender Man" 
+        style={{ display: 'block', marginBottom: '8px' }}/>
+        <p style={{ margin: 0 }}>USA Today article on the stabbing incident</p>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/N1pOO3CHA24?si=uLyr2_BKOpwbJt_T"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
+        
+      </div>
+    </>
+  )}
