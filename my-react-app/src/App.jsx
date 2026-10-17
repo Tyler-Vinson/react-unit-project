@@ -6,7 +6,7 @@ import MusicPlayer from './components/navbar/music'
 import MainRoom from './pages/main-room'
 import ThreeDoors from './pages/three-doors'
 import PreMall from './pages/pre-mall'
-import PreSlender from './pages/pre-slender'
+import PreSlender from './pages/slender-page'
 import PreWitch from './pages/pre-witch'
 
 const MallExplorer = lazy(() => import('./pages/mall'))
