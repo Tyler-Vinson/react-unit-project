@@ -23,17 +23,17 @@
 /* Main page */
 .pre-mall-page {
     position: relative;
-    width: 90%;
+    width: min(100% - 2rem, 1200px);
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 0;
-    inline-size: 80%;
+    padding: 6.5rem 0 40px;
+    inline-size: auto;
     background-color: #333;
   }
 
 .pre-mall-back-link {
     position: absolute;
-    top: 16px;
+    top: 5rem;
     right: 20px;
     z-index: 1;
     display: block;
@@ -87,7 +87,8 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     align-items: center;
     gap: 40px;
-    max-width: 850px;
+    width: 100%;
+    max-width: none;
     margin: 0 auto 40px;
     padding: 0 20px;
     text-align: left;
@@ -108,7 +109,7 @@
 }
 
 /* Description */
-.pre-mall-intro p {
+.pre-mall-page .pre-mall-intro p {
     grid-column: 1 / -1;
     width: 100%;
     max-width: none;
@@ -117,9 +118,29 @@
 }
 
 @media (max-width: 700px) {
+    .pre-mall-page {
+        width: calc(100% - 1rem);
+        padding: 6rem 0 24px;
+    }
+
+    .pre-mall-back-link {
+        top: 4.5rem;
+        right: 12px;
+        width: 34px;
+    }
+
     .pre-mall-intro {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 12px;
+        padding: 0 12px;
+    }
+
+    .pre-mall-intro h1 {
+        font-size: clamp(2rem, 10vw, 3.5rem);
+    }
+
+    .pre-mall-intro h2 {
+        margin-bottom: 8px;
     }
 }
 
@@ -169,5 +190,22 @@
 @media (max-width: 700px) {
     .pre-mall-photos {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .pre-mall-photo-card img {
+        height: clamp(180px, 55vw, 250px);
+    }
+
+    .pre-mall-photo-card figcaption {
+        right: 8px;
+        bottom: 8px;
+        left: 8px;
+        padding: 10px 12px;
+    }
+
+    .pre-mall-door-label {
+        padding: 14px 22px;
+        font-size: 1.1rem;
     }
 }
