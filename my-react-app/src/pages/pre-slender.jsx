@@ -1,6 +1,8 @@
 import "../pre-slender.css"
 import { Link } from "react-router-dom"
 import doorClosed from "../assets/doorclosed.png"
+import slenderman from "../assets/slenderman.webp"
+import slenderHeadshot from "../assets/Slender headhot.png"
 
 export default function PreSlender() {
   return (
@@ -23,11 +25,11 @@ export default function PreSlender() {
       </section>
       <div className="pre-mall-photos">
         <figure className="pre-mall-photo-card">
-          <img src="../assets/pre-slender-photo1.jpg" alt="Slender Man" />
+          <img src={slenderman} alt="Slender Man" />
           <figcaption>Photo of Slender Man</figcaption>
         </figure>
         <figure className="pre-mall-photo-card">
-          <img src="../assets/pre-slender-photo2.jpg" alt="Slender Man" />
+          <img src={slenderHeadshot} alt="USA Today article about Slender Man" />
           <figcaption>USA Today article on the stabbing incident</figcaption>
         </figure>
         <iframe

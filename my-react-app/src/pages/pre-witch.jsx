@@ -1,7 +1,8 @@
-
 import "./../pre-slender.css"
 import { Link } from "react-router-dom"
 import doorClosed from "../assets/doorclosed.png"
+import blairLogo from "../assets/blair logo.jpeg"
+import witchTotem from "../assets/witch totem.jpeg"
 
 export default function PreWitch() {
   return (
@@ -24,11 +25,11 @@ export default function PreWitch() {
       </section>
       <div className="pre-mall-photos">
         <figure className="pre-mall-photo-card">
-          <img src="../assets/pre-witch-photo1.jpg" alt="The Blair Witch" />
+          <img src={blairLogo} alt="The Blair Witch" />
           <figcaption>Photo of the Witch</figcaption>
         </figure>
         <figure className="pre-mall-photo-card">
-          <img src="../assets/pre-witch-photo2.jpg" alt="Witch" />
+          <img src={witchTotem} alt="Blair Witch totem" />
           <figcaption>Article on the Witch phenomenon</figcaption>
         </figure>
         <iframe
