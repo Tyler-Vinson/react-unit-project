@@ -2,7 +2,7 @@ import "../pre-slender.css"
 import slenderman from '../assets/slenderman.webp'
 import slenderHeadshot from '../assets/Slender headhot.png'
 import { Link } from "react-router-dom"
-import doorClosed from '../assets/door-closed.webp'
+import doorClosed from '../assets/doorclosed.png'
 
 export default function PreSlender() {
   return (
