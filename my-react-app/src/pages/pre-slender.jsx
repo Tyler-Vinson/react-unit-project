@@ -1,4 +1,6 @@
 import "../pre-slender.css"
+import slenderman from '../assets/slenderman.webp'
+import slenderHeadshot from '../assets/Slender headhot.png'
 
 export default function PreSlender() {
   return (
@@ -9,12 +11,12 @@ export default function PreSlender() {
         <p>Slender Man is a fictional supernatural character that originated as an internet Creepypasta <br /> The character is depicted as a tall, faceless figure in a black suit, often associated with stalking, abduction, and psychological horror. This is the first creepypasta to gain widespread non-internet attention, due to the stabbing incident involving two young girls in 2014.</p>
       </div>
       <div className="pre-slender-photos">
-        <img src="../assets/pre-slender-photo1.jpg" alt="Slender Man" 
+        <img src={slenderman} alt="Slender Man" 
         style={{ display: 'block', marginBottom: '8px' }}/>
-        <p style={{ margin: 0 }}>Photo of Slender Man</p>
-        <img src="../assets/pre-slender-photo2.jpg" alt="Slender Man" 
+        <p style={{ margin: 0 }}>Photo of Slender Man.</p>
+        <img src={slenderHeadshot} alt="Slender Man" 
         style={{ display: 'block', marginBottom: '8px' }}/>
-        <p style={{ margin: 0 }}>USA Today article on the stabbing incident</p>
+        <p style={{ margin: 0 }}>USA Today article on the stabbing incident.</p>
         <iframe
           width="560"
           height="315"
