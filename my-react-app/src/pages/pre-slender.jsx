@@ -1,6 +1,8 @@
 import "../pre-slender.css"
 import slenderman from '../assets/slenderman.webp'
 import slenderHeadshot from '../assets/Slender headhot.png'
+import { Link } from "react-router-dom"
+import doorClosed from '../assets/door-closed.webp'
 
 export default function PreSlender() {
   return (
@@ -25,6 +27,15 @@ export default function PreSlender() {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
+                <Link
+          to="/slender-page"
+          className="door-link"
+          aria-label="Enter the Slender Man page"
+        >
+          <span className="door-frame">
+            <img className="door" src={doorClosed} alt="Closed door to the Slender Man page" />
+          </span>
+        </Link>
         
       </div>
     </>
