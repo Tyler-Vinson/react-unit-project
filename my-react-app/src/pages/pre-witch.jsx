@@ -41,7 +41,7 @@ export default function PreWitch() {
       <div className="pre-mall-door-links">
         <Link
           className="pre-mall-door-link"
-          to="/model-showcase"
+          to="/witch-page"
           aria-label="Explore the model"
         >
           <span className="door-frame">

@@ -1,6 +1,6 @@
 import "../slender-page.css"
 
-const SKETCHFAB_MODEL_UID = '0d250c25826d4286bcee8dd8faf3c472'
+const SKETCHFAB_MODEL_UID = 'd6b0f6b38d6943bbaffdd6572b9c6eb6'
 
 export default function SlenderPage() {
   return (
