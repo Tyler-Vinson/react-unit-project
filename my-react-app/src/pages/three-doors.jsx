@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import doorClosed from '../assets/doorclosed.png'
-import openCenterDoor from '../assets/doors-center-open-transparent.png'
 import roomImage from '../assets/room-without-pillars.png'
 import closedLeftDoor from '../assets/three-doors-left-closed.png'
 import openLeftDoor from '../assets/three-doors-left-open.png'
@@ -46,14 +45,7 @@ const ThreeDoors = () => {
             to="/pre-slender"
             aria-label="Explore Slender Man"
             {...hoverProps('center')}
-          >
-            <span className="door-opening" aria-hidden="true" />
-            <img
-              className={`room-door-panel${activeDoor === 'center' ? ' room-door-center-open' : ''}`}
-              src={activeDoor === 'center' ? openCenterDoor : doorClosed}
-              alt=""
-            />
-          </Link>
+          />
         </div>
         <div className="room-door room-door-right">
           <Link
