@@ -25,16 +25,21 @@
   outline-offset: 3px;
 }
 
- .main-room {
+main.main-room {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 2rem;
   padding: 4rem 1.5rem;
   box-sizing: border-box;
-  text-align: center;
+  text-align: left;
+  border: 0;
   background:
     linear-gradient(rgb(24 20 16 / 48%), rgb(24 20 16 / 72%)),
     url('./assets/main-room-background.avif') center / cover no-repeat;
@@ -42,10 +47,12 @@
 }
 
 #text {
-  max-width: 38rem;
+  flex: 1 1 auto;
+  max-width: 48rem;
 }
 
 #text-title {
+  max-width: 18ch;
   margin: 0 0 0.75rem;
   font-size: clamp(2.25rem, 6vw, 4.5rem);
 }
@@ -57,6 +64,7 @@
 
 .door-link {
   display: inline-block;
+  flex: 0 0 auto;
   perspective: 900px;
   border-radius: 0.25rem;
 }
@@ -68,11 +76,6 @@
 
 .door-frame {
   display: block;
-  padding: 0.75rem;
-  background: #49301f;
-  border: 0.4rem solid #8e542f;
-  border-bottom-width: 0.7rem;
-  box-shadow: 0 1rem 2rem rgb(0 0 0 / 35%);
 }
 
 .door {
@@ -88,6 +91,14 @@
 .door-link:focus-visible .door {
   transform: perspective(900px) rotateY(70deg);
   filter: brightness(0.8);
+}
+
+@media (max-width: 640px) {
+  .main-room {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
