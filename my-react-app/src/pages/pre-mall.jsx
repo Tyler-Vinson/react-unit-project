@@ -10,13 +10,6 @@ import doorClosed from "../assets/doorclosed.png"
 export default function PreMall() {
   return (
     <main className="pre-mall-page">
-      <Link
-        className="pre-mall-back-link"
-        to="/three-doors"
-        aria-label="Return to the three doors"
-      >
-        <img src={doorClosed} alt="Return to the three doors" />
-      </Link>
       <section className="pre-mall-intro">
         <img className="topphoto" src={valleyMall} alt="Valley View Center" />
         <div className="pre-mall-intro-copy">
@@ -48,16 +41,28 @@ export default function PreMall() {
         ></iframe>
 
       </div>
-      <Link
-        className="pre-mall-door-link"
-        to="/3d"
-        aria-label="Enter the mall"
-      >
-        <span className="door-frame">
-          <img className="door" src={doorClosed} alt="Closed door to the mall" />
-        </span>
-        <span className="pre-mall-door-label">Enter the mall</span>
-      </Link>
+      <div className="pre-mall-door-links">
+        <Link
+          className="pre-mall-door-link"
+          to="/3d"
+          aria-label="Enter the mall"
+        >
+          <span className="door-frame">
+            <img className="door" src={doorClosed} alt="Closed door to the mall" />
+          </span>
+          <span className="pre-mall-door-label">Enter the mall</span>
+        </Link>
+        <Link
+          className="pre-mall-door-link"
+          to="/model-showcase"
+          aria-label="Explore the mall"
+        >
+          <span className="door-frame">
+            <img className="door" src={doorClosed} alt="Door to the model showcase" />
+          </span>
+          <span className="pre-mall-door-label">Explore the model</span>
+        </Link>
+      </div>
     </main>
 
   )

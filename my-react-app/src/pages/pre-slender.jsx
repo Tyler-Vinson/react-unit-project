@@ -7,9 +7,6 @@ import slenderHeadshot from "../assets/Slender headhot.png"
 export default function PreSlender() {
   return (
     <main className="pre-mall-page">
-      <Link className="pre-mall-back-link" to="/three-doors" aria-label="Return to the three doors">
-        <img src={doorClosed} alt="Return to the three doors" />
-      </Link>
       <section className="pre-mall-intro">
         <div className="pre-mall-intro-copy">
           <h1>Slender Man</h1>
@@ -41,12 +38,18 @@ export default function PreSlender() {
           allowFullScreen
         ></iframe>
       </div>
-      <Link className="pre-mall-door-link" to="/three-doors" aria-label="Explore the mall">
-        <span className="door-frame">
-          <img className="door" src={doorClosed} alt="Explore the mall" />
-        </span>
-        <span className="pre-mall-door-label">Explore the mall</span>
-      </Link>
+      <div className="pre-mall-door-links">
+        <Link
+          className="pre-mall-door-link"
+          to="/model-showcase"
+          aria-label="Explore the mall"
+        >
+          <span className="door-frame">
+            <img className="door" src={doorClosed} alt="Door to the model showcase" />
+          </span>
+          <span className="pre-mall-door-label">Explore the model</span>
+        </Link>
+      </div>
     </main>
   )
 }
