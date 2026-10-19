@@ -1,7 +1,11 @@
 :root {
+  --bright: #dddca5;
+  --dark: #9d8b41;
+  --medium: #ada560;
+  --ink: #1f1c0e;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #f5f1e8;
-  background: #171411;
+  color: var(--ink);
+  background: var(--bright);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -15,9 +19,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(120, 88, 45, 0.24), transparent 42rem),
-    #171411;
+  background: var(--bright);
 }
 
 #root {
@@ -39,8 +41,8 @@ nav {
   gap: 1rem;
   justify-content: center;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(245, 241, 232, 0.16);
-  background: rgba(23, 20, 17, 0.92);
+  border-bottom: 1px solid var(--dark);
+  background: var(--medium);
 }
 
 .nav-menu {
@@ -52,14 +54,14 @@ nav {
 }
 
 nav a {
-  color: #d8c5a3;
+  color: var(--ink);
   text-decoration: none;
   white-space: nowrap;
 }
 
 nav a:hover,
 nav a:focus-visible {
-  color: #fff5df;
+  text-decoration: underline;
 }
 
 main {
@@ -73,18 +75,16 @@ main:not(.viewer-page) {
   align-content: center;
   justify-items: start;
   padding: 4rem clamp(1.25rem, 5vw, 5rem);
-  border: 1px solid rgba(216, 197, 163, 0.2);
+  border: 1px solid var(--dark);
   border-top: 0;
-  background:
-    linear-gradient(135deg, rgba(72, 52, 31, 0.44), transparent 55%),
-    rgba(38, 31, 24, 0.48);
+  background: var(--medium);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
 }
 
 main:not(.viewer-page) h1 {
   max-width: 12ch;
   margin: 0 0 1rem;
-  color: #fff5df;
+  color: var(--ink);
   font-size: clamp(2.5rem, 8vw, 5.5rem);
   line-height: 0.98;
   letter-spacing: -0.04em;
@@ -93,7 +93,7 @@ main:not(.viewer-page) h1 {
 main:not(.viewer-page) p {
   max-width: 48ch;
   margin: 0;
-  color: #cbbda9;
+  color: var(--ink);
   font-size: 1.1rem;
   line-height: 1.7;
 }
@@ -106,7 +106,7 @@ main:not(.viewer-page) p {
   padding: 1rem max(1rem, calc((100% - 1100px) / 2)) 2rem;
   box-sizing: border-box;
   background:
-    linear-gradient(rgba(23, 20, 17, 0.58), rgba(23, 20, 17, 0.84)),
+    linear-gradient(rgba(221, 220, 165, 0.58), rgba(221, 220, 165, 0.84)),
     url('/alberti-nave.jpg') center top / cover fixed no-repeat;
 }
 
@@ -114,22 +114,22 @@ main:not(.viewer-page) p {
   width: min(92%, 900px);
   margin-inline: auto;
   overflow: visible;
-  border: 1px solid rgba(216, 197, 163, 0.18);
+  border: 1px solid var(--dark);
   border-radius: 18px;
-  background: rgba(38, 31, 24, 0.45);
+  background: var(--medium);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
 }
 
 .viewer-heading {
   padding: 0.75rem 1.5rem;
   transform: translateY(-0.75rem);
-  background: rgba(38, 31, 24, 0.62);
+  background: var(--dark);
   border-radius: 14px;
 }
 
 .eyebrow {
   margin: 0 0 0.5rem;
-  color: #d8a85e;
+  color: var(--ink);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -138,23 +138,21 @@ main:not(.viewer-page) p {
 
 .viewer-heading h1 {
   margin: 0 0 0.75rem;
-  color: #fff5df;
+  color: var(--ink);
   font-size: clamp(1.4rem, 3vw, 2.25rem);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
 }
 
 .description {
   max-width: 60ch;
-  color: #cbbda9;
+  color: var(--ink);
   font-size: 0.9rem;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .statue-list-label {
   display: block;
   margin-top: 0.75rem;
   margin-bottom: 0.5rem;
-  color: #fff5df;
+  color: var(--ink);
   font-size: 0.85rem;
   font-weight: 700;
 }
@@ -162,9 +160,9 @@ main:not(.viewer-page) p {
 .music-button {
   margin-top: 1rem;
   padding: 0.65rem 1rem;
-  border: 1px solid #d8a85e;
+  border: 1px solid var(--dark);
   border-radius: 8px;
-  color: #fff5df;
+  color: var(--ink);
   background: transparent;
   cursor: pointer;
   font-weight: 700;
@@ -172,8 +170,8 @@ main:not(.viewer-page) p {
 
 .music-button:hover,
 .music-button:focus-visible {
-  color: #211b16;
-  background: #d8a85e;
+  color: var(--ink);
+  background: var(--dark);
 }
 
 .statue-list {
@@ -191,10 +189,10 @@ main:not(.viewer-page) p {
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid rgba(216, 197, 163, 0.3);
+  border: 1px solid var(--dark);
   border-radius: 10px;
-  color: #cbbda9;
-  background: #211b16;
+  color: var(--ink);
+  background: var(--bright);
   cursor: pointer;
   text-align: left;
   transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
@@ -202,19 +200,19 @@ main:not(.viewer-page) p {
 
 .statue-card:hover,
 .statue-card:focus-visible {
-  border-color: #d8a85e;
+  border-color: var(--ink);
   transform: translateY(-2px);
 }
 
 .statue-card.selected {
-  border-color: #d8a85e;
-  color: #fff5df;
-  background: #3a2b1c;
-  box-shadow: inset 0 0 0 1px rgba(216, 168, 94, 0.25);
+  border-color: var(--dark);
+  color: var(--ink);
+  background: var(--dark);
+  box-shadow: inset 0 0 0 1px var(--bright);
 }
 
 .statue-card-number {
-  color: #d8a85e;
+  color: var(--ink);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -227,7 +225,7 @@ main:not(.viewer-page) p {
   min-height: min(65vw, 620px);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scrollbar-color: #8d6d43 #211b16;
+  scrollbar-color: var(--dark) var(--bright);
   background: transparent;
 }
 
@@ -259,12 +257,12 @@ main:not(.viewer-page) p {
   min-height: min(65vw, 620px);
   place-content: center;
   gap: 0.5rem;
-  color: #433322;
+  color: var(--ink);
   text-align: center;
 }
 
 .render-slide-label small {
-  color: #735d43;
+  color: var(--ink);
 }
 
 .viewer-placeholder {
@@ -278,15 +276,15 @@ main:not(.viewer-page) p {
   place-content: center;
   gap: 0.75rem;
   padding: 2rem;
-  color: #735d43;
+  color: var(--ink);
   border-radius: 50% 50% 0 0 / 24% 24% 0 0;
-  background: rgba(239, 225, 199, 0.4);
+  background: var(--bright);
   clip-path: inset(0 round 50% 50% 0 0 / 24% 24% 0 0);
   text-align: center;
 }
 
 .placeholder-icon {
-  color: #9b6e31;
+  color: var(--dark);
   font-size: 2.5rem;
 }
 
@@ -301,7 +299,7 @@ main:not(.viewer-page) p {
 
 .status {
   margin: 0;
-  color: #cbbda9;
+  color: var(--ink);
   font-size: 0.8rem;
 }
 
@@ -309,8 +307,8 @@ main:not(.viewer-page) p {
   padding: 0.75rem 1.25rem;
   border: 0;
   border-radius: 10px;
-  color: #211b16;
-  background: #d8a85e;
+  color: var(--ink);
+  background: var(--dark);
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 700;

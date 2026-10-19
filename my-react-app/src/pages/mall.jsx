@@ -495,7 +495,7 @@ export default function MallExplorer() {
           gl={{ antialias: false, powerPreference: 'high-performance' }}
           camera={{ fov: 75, near: 0.1, far: 2000 }}
         >
-          <color attach="background" args={['#191b19']} />
+          <color attach="background" args={['#9d8b41']} />
           <fog attach="fog" args={['#191b19', 100, 550]} />
           <hemisphereLight args={['#dce8ff', '#6a664d', 2.2]} />
           <ambientLight intensity={0.8} />
