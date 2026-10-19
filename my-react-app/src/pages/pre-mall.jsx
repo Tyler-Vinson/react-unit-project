@@ -57,10 +57,6 @@ export default function PreMall() {
           to="/model-showcase"
           aria-label="Explore the mall"
         >
-          <span className="door-frame">
-            <img className="door" src={doorClosed} alt="Door to the model showcase" />
-          </span>
-          <span className="pre-mall-door-label">Explore the model</span>
         </Link>
       </div>
     </main>
