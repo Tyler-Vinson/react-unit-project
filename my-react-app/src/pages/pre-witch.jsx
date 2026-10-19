@@ -16,7 +16,7 @@ export default function PreWitch() {
           The Blair Witch Project is a 1999 American supernatural horror film that popularized the Blair Witch
           legend.
           <br />
-          It is also the first found footage horror film to gain widespread attention, which led to the creation
+          It is also the first found-footage horror film to gain widespread attention, which led to the creation
           of the found footage genre in horror cinema.
         </p>
       </section>
@@ -42,7 +42,7 @@ export default function PreWitch() {
         <Link
           className="pre-mall-door-link"
           to="/model-showcase"
-          aria-label="Explore the mall"
+          aria-label="Explore the model"
         >
           <span className="door-frame">
             <img className="door" src={doorClosed} alt="Door to the model showcase" />

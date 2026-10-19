@@ -5,9 +5,9 @@ const MainRoom = () => (
   <main className="main-room">
     <div id="text">
       <h1 id="text-title">The Abandoned Internet Museum</h1>
-      <p id="credit">Designed by: Tyler Vinson and Germaine Reed</p>
+      <p id="credit">Designed by Tyler Vinson and Germaine Reed</p>
       <p id="description">
-        Explore the abandoned Valley View Mall in a first-person 3D experience.
+        Step into a virtual museum showcasing important moments in internet horror history, both known and unknown.
       </p>
     </div>
     <Link
