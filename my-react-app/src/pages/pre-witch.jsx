@@ -10,7 +10,7 @@ export default function PreWitch() {
       <section className="pre-mall-intro">
         <div className="pre-mall-intro-copy">
           <h1>The Blair Witch Project</h1>
-          <h2>Created in 1999</h2>
+          <h2>Released in 1999</h2>
         </div>
         <p>
           The Blair Witch Project is a 1999 American supernatural horror film that popularized the Blair Witch

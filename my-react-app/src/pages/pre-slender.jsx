@@ -41,13 +41,13 @@ export default function PreSlender() {
       <div className="pre-mall-door-links">
         <Link
           className="pre-mall-door-link"
-          to="/model-showcase"
-          aria-label="Explore the mall"
+          to="/slender-page"
+          aria-label="Enter the Slender Man room"
         >
           <span className="door-frame">
-            <img className="door" src={doorClosed} alt="Door to the model showcase" />
+            <img className="door" src={doorClosed} alt="Door to the Slender Man room" />
           </span>
-          <span className="pre-mall-door-label">Explore the model</span>
+          <span className="pre-mall-door-label">Enter the room</span>
         </Link>
       </div>
     </main>
