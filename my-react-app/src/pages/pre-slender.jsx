@@ -16,14 +16,14 @@ export default function PreSlender() {
           Slender Man is a fictional supernatural character that originated as an internet Creepypasta.
           <br />
           The character is depicted as a tall, faceless figure in a black suit, often associated with stalking,
-          abduction, and psychological horror. This is the first creepypasta to gain widespread non-internet
+          abduction, and psychological horror. This is the first Creepypasta to gain widespread non-internet
           attention, due to the stabbing incident involving two young girls in 2014.
         </p>
       </section>
       <div className="pre-mall-photos">
         <figure className="pre-mall-photo-card">
           <img src={slenderman} alt="Slender Man" />
-          <figcaption>Photo of Slender Man</figcaption>
+          <figcaption>Original edited photo of Slender Man</figcaption>
         </figure>
         <figure className="pre-mall-photo-card">
           <img src={slenderHeadshot} alt="USA Today article about Slender Man" />

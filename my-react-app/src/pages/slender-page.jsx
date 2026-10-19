@@ -6,7 +6,7 @@ export default function SlenderPage() {
   return (
     <main className="slender-page">
       <h1>3D Recreation of Slender Man</h1>
-      <h2>Created by The Lister On Sketchfab</h2>
+      <h2>Created by The Lister on Sketchfab</h2>
       <section className="slender-model" aria-labelledby="slender-model-heading">
         <h2 id="slender-model-heading">Explore the 3D model</h2>
         <div className="slender-model-frame">
