@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import doorClosed from '../assets/doorclosed.png'
 import leftDoor from '../assets/door-left-reference.png'
 import centerPanel from '../assets/door-center-panel.png'
 import rightDoor from '../assets/door-right-reference.png'
@@ -44,9 +43,6 @@ const ThreeDoors = () => (
         </Link>
       </div>
     </div>
-    <Link className="exit-door-link" to="/" aria-label="Return to the front page">
-      <img className="exit-door" src={doorClosed} alt="Exit door" />
-    </Link>
   </main>
 )
 
