@@ -52,12 +52,6 @@ export default function PreMall() {
           </span>
           <span className="pre-mall-door-label">Enter the mall</span>
         </Link>
-        <Link
-          className="pre-mall-door-link"
-          to="/model-showcase"
-          aria-label="Explore the mall"
-        >
-        </Link>
       </div>
     </main>
 
