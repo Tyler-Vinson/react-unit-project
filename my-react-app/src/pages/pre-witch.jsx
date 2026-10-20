@@ -1,9 +1,9 @@
-import "./../pre-slender.css"
-import { Link } from "react-router-dom"
-import doorClosed from "../assets/doorclosed.png"
-import doorOpen from "../assets/three-doors-center-open-static-frame.png"
-import blairLogo from "../assets/blair logo.jpeg"
-import witchTotem from "../assets/witch totem.jpeg"
+import "./../pre-slender.css";
+import { Link } from "react-router-dom";
+import doorClosed from "../assets/doorclosed.png";
+import doorOpen from "../assets/three-doors-center-open-static-frame.png";
+import blairLogo from "../assets/blair logo.jpeg";
+import witchTotem from "../assets/witch totem.jpeg";
 
 export default function PreWitch() {
   return (
@@ -14,11 +14,12 @@ export default function PreWitch() {
           <h2>Released in 1999</h2>
         </div>
         <p>
-          The Blair Witch Project is a 1999 American supernatural horror film that popularized the Blair Witch
-          legend.
+          The Blair Witch Project is a 1999 American supernatural horror film
+          that popularized the Blair Witch legend.
           <br />
-          It is also the first found-footage horror film to gain widespread attention, which led to the creation
-          of the found footage genre in horror cinema.
+          It is also the first found-footage horror film to gain widespread
+          attention, which led to the creation of the found footage genre in
+          horror cinema.
         </p>
       </section>
 
@@ -51,17 +52,26 @@ export default function PreWitch() {
       <section className="pre-mall-next">
         <Link
           className="door-link"
-          to="/model-showcase"
-          aria-label="Explore the model"
-          style={{ '--tilt': '-2deg' }}
+          to="/witch-page"
+          aria-label="Enter the Blair Witch room"
+          style={{ "--tilt": "-2deg" }}
         >
-          <span className="door-label">Explore the model</span>
+          <span className="door-label">Enter the room</span>
           <span className="door-stage">
-            <img className="door-closed" src={doorClosed} alt="Door to the model showcase" />
-            <img className="door-open" src={doorOpen} alt="" aria-hidden="true" />
+            <img
+              className="door-closed"
+              src={doorClosed}
+              alt="Door to the Blair Witch room"
+            />
+            <img
+              className="door-open"
+              src={doorOpen}
+              alt=""
+              aria-hidden="true"
+            />
           </span>
         </Link>
       </section>
     </main>
-  )
+  );
 }

@@ -9,6 +9,7 @@ import PreMall from './pages/pre-mall'
 import PreSlender from './pages/pre-slender'
 import SlenderPage from './pages/slender-page'
 import PreWitch from './pages/pre-witch'
+import WitchPage from './pages/witch-page'
 import ModelShowcase from './pages/model-showcase'
 
 const MallExplorer = lazy(() => import('./pages/mall'))
@@ -26,6 +27,7 @@ function App() {
         <Route path="/pre-slender" element={<PreSlender />} />
         <Route path="/slender-page" element={<SlenderPage />} />
         <Route path="/pre-witch" element={<PreWitch />} />
+        <Route path="/witch-page" element={<WitchPage />} />
         <Route path="/model-showcase" element={<ModelShowcase />} />
         <Route
           path="/3d"
