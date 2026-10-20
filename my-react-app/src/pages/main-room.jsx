@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom'
 import doorClosed from '../assets/doorclosed.png'
-import {Link} from 'react-router-dom'
+import doorOpen from '../assets/three-doors-center-open-static-frame.png'
 
 const MainRoom = () => (
   <main className="main-room">
@@ -14,9 +15,11 @@ const MainRoom = () => (
       className="door-link"
       to="/three-doors"
       aria-label="Open the museum door"
+      style={{ '--tilt': '1.5deg' }}
     >
-      <span className="door-frame">
-        <img className="door" src={doorClosed} alt="Closed museum door" />
+      <span className="door-stage">
+        <img className="door-closed" src={doorClosed} alt="Closed museum door" />
+        <img className="door-open" src={doorOpen} alt="" aria-hidden="true" />
       </span>
     </Link>
   </main>

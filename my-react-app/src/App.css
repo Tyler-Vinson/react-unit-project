@@ -62,56 +62,7 @@ main.main-room {
   margin: 0.5rem 0;
 }
 
-.door-link {
-  display: inline-block;
-  flex: 0 0 auto;
-  perspective: 900px;
-  border-radius: 0.25rem;
-}
-
-.door-link:focus-visible {
-  outline: 3px solid var(--bright);
-  outline-offset: 0.5rem;
-}
-
-.door-frame {
-  display: block;
-  padding: 0.75rem;
-  background: transparent;
-  border: 0.4rem solid transparent;
-  border-bottom-width: 0.7rem;
-  box-shadow: none;
-}
-
-.door {
-  display: block;
-  width: min(30vw, 10rem);
-  height: auto;
-  transform-origin: right center;
-  transition: transform 650ms ease, filter 650ms ease;
-  backface-visibility: hidden;
-}
-
-.door-link:hover .door,
-.door-link:focus-visible .door {
-  transform: perspective(900px) rotateY(70deg);
-  filter: brightness(0.8);
-}
-
-@media (max-width: 640px) {
-  .main-room {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .door {
-    transition: none;
-  }
-}
-
+/* ===== Three doors room ===== */
 .three-doors-room {
   position: relative;
   width: 100%;
@@ -204,12 +155,13 @@ main.main-room {
 
 
 
-.room-door-center-open {
-  top: -5%;
-  left: 50%;
-  width: 160%;
-  height: 110%;
-  transform: translateX(calc(-51.2% + 20px));
+/* Center door: swings open on hover, like the side doors open */
+.room-door-center .room-door-state-open {
+  top: -2.06%;
+  left: 0;
+  right: auto;
+  width: 152.66%;
+  height: 110.65%;
 }
 
 .room-door-link:focus-visible {
@@ -249,5 +201,149 @@ main.main-room {
 @media (prefers-reduced-motion: reduce) {
   .exit-door {
     transition: none;
+  }
+}
+
+/* ===== Doors (used on the main page and the info pages) ===== */
+.door-link {
+  --door-h: 18rem; /* height of the closed door; pages override this */
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.door-link:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 0.75rem;
+}
+
+.door-label {
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* The door is sized by its closed image; --tilt makes it hang slightly crooked. */
+.door-stage {
+  position: relative;
+  display: block;
+  height: var(--door-h);
+  aspect-ratio: 169 / 291;
+  transform: rotate(var(--tilt, -1.5deg));
+  transform-origin: 50% 100%;
+}
+
+.door-closed,
+.door-open {
+  position: absolute;
+  display: block;
+  max-width: none;
+  transition: opacity 150ms ease;
+}
+
+.door-closed {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The open-door picture is a little bigger than the closed door, so its frame lines up exactly. */
+.door-open {
+  top: -2.06%;
+  left: 0;
+  width: 152.66%;
+  height: 110.65%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.door-link:hover .door-closed,
+.door-link:focus-visible .door-closed {
+  opacity: 0;
+}
+
+.door-link:hover .door-open,
+.door-link:focus-visible .door-open {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door-closed,
+  .door-open {
+    transition: none;
+  }
+}
+
+/* ===== Main page ===== */
+main.main-room {
+  min-height: 100vh;
+  padding: 6rem clamp(1.5rem, 7vw, 8rem) 3rem;
+  gap: clamp(2rem, 6vw, 8rem);
+  overflow-x: clip;
+}
+
+main.main-room #text {
+  flex: 1 1 auto;
+  max-width: 60rem;
+}
+
+main.main-room #text-title {
+  max-width: 14ch;
+  margin: 0 0 1.25rem;
+  font-size: clamp(2.5rem, 6.5vw, 6rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+main.main-room #credit {
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  padding-top: 0.9rem;
+  border-top: 4px solid var(--dark);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+main.main-room #description {
+  max-width: 38ch;
+  margin: 0;
+  font-size: clamp(1.05rem, 1.5vw, 1.5rem);
+  line-height: 1.55;
+}
+
+/* The door itself is styled in the Doors section above. */
+main.main-room .door-link {
+  --door-h: min(58vh, 36rem);
+  margin-right: calc(var(--door-h) * 0.2); /* leaves room for the open door */
+}
+
+main.main-room .door-stage {
+  filter: drop-shadow(0 1.25rem 1.5rem rgba(31, 28, 14, 0.4));
+}
+
+@media (max-width: 800px) {
+  main.main-room {
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 5.5rem;
+    text-align: center;
+  }
+
+  main.main-room #text-title,
+  main.main-room #description {
+    margin-inline: auto;
+  }
+
+  main.main-room .door-link {
+    --door-h: min(38vh, 22rem);
+    margin-right: calc(var(--door-h) * 0.3);
   }
 }
