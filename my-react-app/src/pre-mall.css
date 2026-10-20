@@ -116,10 +116,12 @@ main.pre-mall-page {
 
 .pre-mall-photo-card img {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: 200px;
+  margin: 0 auto;
   border-radius: 4px;
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 0 6px 16px rgba(31, 28, 14, 0.3);
 }
 
@@ -158,6 +160,24 @@ main.pre-mall-page {
   --door-h: min(20rem, 45vh);
 }
 
+.pre-mall-video-row {
+  display: grid;
+  grid-template-columns: minmax(0, 32rem) auto;
+  justify-content: center;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.pre-mall-video-row .pre-mall-next {
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  .pre-mall-video-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---- Small screens ---- */
 @media (max-width: 900px) {
   .pre-mall-media {
@@ -183,4 +203,48 @@ main.pre-mall-page {
   .pre-mall-photo-card img {
     height: clamp(180px, 55vw, 250px);
   }
+}
+/* ---- Blair Witch pages: full-screen background image ---- */
+main.witch-bg {
+  background-color: transparent;
+}
+
+main.witch-bg::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url('./assets/blair background.jpg') center / cover no-repeat;
+  content: '';
+}
+
+body:has(main.witch-bg) {
+  background: transparent;
+}
+
+main.witch-bg {
+  border: 0;
+  box-shadow: none;
+}
+
+main.witch-bg .door-label {
+  color: var(--bright);
+}
+
+main.witch-bg.witch-bg > h1,
+main.witch-bg.witch-bg > h2 {
+  color: var(--bright);
+}
+
+main.witch-bg .pre-mall-section,
+main.witch-bg .slender-model {
+  background: rgb(221 220 165 / 0.72);
+}
+
+main.witch-bg .pre-mall-photo-card figcaption,
+main.witch-bg .slender-model-frame {
+  opacity: 0.92;
+}
+
+body:has(main.witch-bg) nav {
+  background: rgb(173 165 96 / 0.8);
 }

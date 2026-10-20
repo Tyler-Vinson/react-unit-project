@@ -1,10 +1,11 @@
 import "../slender-page.css"
+import "../pre-mall.css"
 
 const SKETCHFAB_MODEL_UID = 'd6b0f6b38d6943bbaffdd6572b9c6eb6'
 
 export default function WitchPage() {
   return (
-    <main className="slender-page">
+    <main className="slender-page witch-bg">
       <h1>3D Recreation of the Witch</h1>
       <h2>Created by The Lister on Sketchfab</h2>
       <section className="slender-model" aria-labelledby="slender-model-heading">

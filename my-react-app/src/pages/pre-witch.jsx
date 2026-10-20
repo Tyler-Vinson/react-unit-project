@@ -2,12 +2,12 @@ import "./../pre-slender.css";
 import { Link } from "react-router-dom";
 import doorClosed from "../assets/doorclosed.png";
 import doorOpen from "../assets/three-doors-center-open-static-frame.png";
-import blairLogo from "../assets/blair logo.jpeg";
-import witchTotem from "../assets/witch totem.jpeg";
+import blairLogo from "../assets/blair logo.webp";
+import witchTotem from "../assets/witch totem.webp";
 
 export default function PreWitch() {
   return (
-    <main className="pre-mall-page">
+    <main className="pre-mall-page witch-bg">
       <section className="pre-mall-section pre-mall-intro pre-mall-intro-plain">
         <div className="pre-mall-intro-copy">
           <h1>The Blair Witch Project</h1>
@@ -24,18 +24,22 @@ export default function PreWitch() {
       </section>
 
       <section className="pre-mall-section">
-        <h3 className="pre-mall-section-title">Photos and video</h3>
-        <div className="pre-mall-media">
-          <div className="pre-mall-photos">
-            <figure className="pre-mall-photo-card">
-              <img src={blairLogo} alt="The Blair Witch" />
-              <figcaption>Photo of the Witch</figcaption>
-            </figure>
-            <figure className="pre-mall-photo-card">
-              <img src={witchTotem} alt="Blair Witch totem" />
-              <figcaption>Article on the Witch phenomenon</figcaption>
-            </figure>
-          </div>
+        <h3 className="pre-mall-section-title">Photos</h3>
+        <div className="pre-mall-photos">
+          <figure className="pre-mall-photo-card">
+            <img src={blairLogo} alt="The Blair Witch" />
+            <figcaption>Photo of the Witch</figcaption>
+          </figure>
+          <figure className="pre-mall-photo-card">
+            <img src={witchTotem} alt="Blair Witch totem" />
+            <figcaption>Article on the Witch phenomenon</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div className="pre-mall-video-row">
+        <section className="pre-mall-section">
+          <h3 className="pre-mall-section-title">Video</h3>
           <div className="pre-mall-video">
             <iframe
               width="560"
@@ -46,32 +50,31 @@ export default function PreWitch() {
               allowFullScreen
             ></iframe>
           </div>
+        </section>
+        <div className="pre-mall-next">
+          <Link
+            className="door-link"
+            to="/witch-page"
+            aria-label="Enter the Blair Witch room"
+            style={{ "--tilt": "-2deg" }}
+          >
+            <span className="door-label">Enter the room</span>
+            <span className="door-stage">
+              <img
+                className="door-closed"
+                src={doorClosed}
+                alt="Door to the Blair Witch room"
+              />
+              <img
+                className="door-open"
+                src={doorOpen}
+                alt=""
+                aria-hidden="true"
+              />
+            </span>
+          </Link>
         </div>
-      </section>
-
-      <section className="pre-mall-next">
-        <Link
-          className="door-link"
-          to="/witch-page"
-          aria-label="Enter the Blair Witch room"
-          style={{ "--tilt": "-2deg" }}
-        >
-          <span className="door-label">Enter the room</span>
-          <span className="door-stage">
-            <img
-              className="door-closed"
-              src={doorClosed}
-              alt="Door to the Blair Witch room"
-            />
-            <img
-              className="door-open"
-              src={doorOpen}
-              alt=""
-              aria-hidden="true"
-            />
-          </span>
-        </Link>
-      </section>
+      </div>
     </main>
   );
 }
