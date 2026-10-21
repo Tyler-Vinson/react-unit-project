@@ -23,18 +23,22 @@ export default function PreSlender() {
       </section>
 
       <section className="pre-mall-section">
-        <h3 className="pre-mall-section-title">Photos and video</h3>
-        <div className="pre-mall-media">
-          <div className="pre-mall-photos">
-            <figure className="pre-mall-photo-card">
-              <img src={slenderman} alt="Slender Man" />
-              <figcaption>Original edited photo of Slender Man</figcaption>
-            </figure>
-            <figure className="pre-mall-photo-card">
-              <img src={slenderHeadshot} alt="USA Today article about Slender Man" />
-              <figcaption>USA Today article on the stabbing incident</figcaption>
-            </figure>
-          </div>
+        <h3 className="pre-mall-section-title">Photos</h3>
+        <div className="pre-mall-photos">
+          <figure className="pre-mall-photo-card">
+            <img src={slenderman} alt="Slender Man" />
+            <figcaption>Original edited photo of Slender Man</figcaption>
+          </figure>
+          <figure className="pre-mall-photo-card">
+            <img src={slenderHeadshot} alt="USA Today article about Slender Man" />
+            <figcaption>USA Today article on the stabbing incident</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div className="pre-mall-video-row">
+        <section className="pre-mall-section">
+          <h3 className="pre-mall-section-title">Video</h3>
           <div className="pre-mall-video">
             <iframe
               width="560"
@@ -45,23 +49,22 @@ export default function PreSlender() {
               allowFullScreen
             ></iframe>
           </div>
+        </section>
+        <div className="pre-mall-next">
+          <Link
+            className="door-link"
+            to="/slender-page"
+            aria-label="Enter the Slender Man room"
+            style={{ '--tilt': '1.2deg' }}
+          >
+            <span className="door-label">Enter the room</span>
+            <span className="door-stage">
+              <img className="door-closed" src={doorClosed} alt="Door to the Slender Man room" />
+              <img className="door-open" src={doorOpen} alt="" aria-hidden="true" />
+            </span>
+          </Link>
         </div>
-      </section>
-
-      <section className="pre-mall-next">
-        <Link
-          className="door-link"
-          to="/slender-page"
-          aria-label="Enter the Slender Man room"
-          style={{ '--tilt': '1.2deg' }}
-        >
-          <span className="door-label">Enter the room</span>
-          <span className="door-stage">
-            <img className="door-closed" src={doorClosed} alt="Door to the Slender Man room" />
-            <img className="door-open" src={doorOpen} alt="" aria-hidden="true" />
-          </span>
-        </Link>
-      </section>
+      </div>
     </main>
   )
 }

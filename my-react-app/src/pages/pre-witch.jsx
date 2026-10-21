@@ -28,11 +28,11 @@ export default function PreWitch() {
         <div className="pre-mall-photos">
           <figure className="pre-mall-photo-card">
             <img src={blairLogo} alt="The Blair Witch" />
-            <figcaption>Photo of the Witch</figcaption>
+            <figcaption>Photo of the movie poster</figcaption>
           </figure>
           <figure className="pre-mall-photo-card">
             <img src={witchTotem} alt="Blair Witch totem" />
-            <figcaption>Article on the Witch phenomenon</figcaption>
+            <figcaption>Gif of the Blair Witch totem</figcaption>
           </figure>
         </div>
       </section>
@@ -44,7 +44,7 @@ export default function PreWitch() {
             <iframe
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/N1pOO3CHA24?si=uLyr2_BKOpwbJt_T"
+              src="https://www.youtube.com/embed/MBZ-POVsrlI?si=i3ymkYKRP9o-raJ4"
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen

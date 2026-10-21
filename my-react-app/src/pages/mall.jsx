@@ -17,6 +17,7 @@ const GRAVITY = 22
 const JUMP_SPEED = 7
 const MAX_STEP = 0.2
 const STEP_UP = 1.0
+const TOUCH_JOYSTICK_RADIUS = 52
 
 const raycaster = new THREE.Raycaster()
 raycaster.firstHitOnly = true
@@ -250,7 +251,96 @@ function readGamepad() {
   }
 }
 
-function Player({ meshes, bounds, spawn, onNoclip, active, onPadToggle }) {
+function TouchControls({ getInput }) {
+  const joystick = useRef(null)
+  const movePointer = useRef(null)
+  const lookPointer = useRef(null)
+  const lookPosition = useRef({ x: 0, y: 0 })
+
+  const resetMove = () => {
+    movePointer.current = null
+    const input = getInput()
+    input.moveX = 0
+    input.moveY = 0
+    if (joystick.current) joystick.current.style.transform = 'translate(-50%, -50%)'
+  }
+
+  const handleMoveStart = (event) => {
+    if (movePointer.current !== null) return
+    movePointer.current = event.pointerId
+    event.currentTarget.setPointerCapture(event.pointerId)
+    handleMove(event)
+  }
+
+  const handleMove = (event) => {
+    if (event.pointerId !== movePointer.current) return
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = event.clientX - (bounds.left + bounds.width / 2)
+    const y = event.clientY - (bounds.top + bounds.height / 2)
+    const distance = Math.min(Math.hypot(x, y), TOUCH_JOYSTICK_RADIUS)
+    const angle = Math.atan2(y, x)
+    const offsetX = Math.cos(angle) * distance
+    const offsetY = Math.sin(angle) * distance
+    const input = getInput()
+    input.moveX = offsetX / TOUCH_JOYSTICK_RADIUS
+    input.moveY = offsetY / TOUCH_JOYSTICK_RADIUS
+    if (joystick.current) {
+      joystick.current.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`
+    }
+  }
+
+  const handleLookStart = (event) => {
+    if (lookPointer.current !== null) return
+    lookPointer.current = event.pointerId
+    lookPosition.current = { x: event.clientX, y: event.clientY }
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const handleLook = (event) => {
+    if (event.pointerId !== lookPointer.current) return
+    const previous = lookPosition.current
+    const input = getInput()
+    input.lookX += event.clientX - previous.x
+    input.lookY += event.clientY - previous.y
+    lookPosition.current = { x: event.clientX, y: event.clientY }
+  }
+
+  const handleLookEnd = () => {
+    lookPointer.current = null
+  }
+
+  return (
+    <div className="mall-touch-controls" aria-label="Touch controls">
+      <div
+        className="mall-touch-joystick"
+        onPointerDown={handleMoveStart}
+        onPointerMove={handleMove}
+        onPointerUp={resetMove}
+        onPointerCancel={resetMove}
+      >
+        <span ref={joystick} />
+      </div>
+      <div
+        className="mall-touch-look"
+        onPointerDown={handleLookStart}
+        onPointerMove={handleLook}
+        onPointerUp={handleLookEnd}
+        onPointerCancel={handleLookEnd}
+      />
+      <button
+        className="mall-touch-jump"
+        type="button"
+        onPointerDown={() => { getInput().jump = true }}
+        onPointerUp={() => { getInput().jump = false }}
+        onPointerCancel={() => { getInput().jump = false }}
+      >
+        Jump
+      </button>
+    </div>
+  )
+}
+
+function Player({ meshes, bounds, spawn, onNoclip, active, onPadToggle, getTouchInput }) {
   const { camera } = useThree()
   const keys = useRef(new Set())
   const feet = useRef(new THREE.Vector3())
@@ -302,6 +392,7 @@ function Player({ meshes, bounds, spawn, onNoclip, active, onPadToggle }) {
     const delta = Math.min(frameDelta, 0.05)
     const pressed = keys.current
     const position = feet.current
+    const touch = getTouchInput()
     const pad = readGamepad()
     const last = lastPad.current
     if (pad) {
@@ -315,31 +406,37 @@ function Player({ meshes, bounds, spawn, onNoclip, active, onPadToggle }) {
       last.noclip = pad.noclip
     }
     const padInput = pad && activeRef.current ? pad : null
-    if (padInput && (padInput.lookX || padInput.lookY)) {
+    const lookX = (padInput?.lookX ?? 0) * 20 + touch.lookX * 0.08
+    const lookY = (padInput?.lookY ?? 0) * 20 + touch.lookY * 0.08
+    if (lookX || lookY) {
       const euler = new THREE.Euler().setFromQuaternion(camera.quaternion, 'YXZ')
-      euler.y -= padInput.lookX * LOOK_SPEED * delta
+      euler.y -= lookX * LOOK_SPEED * delta
       euler.x = THREE.MathUtils.clamp(
-        euler.x - padInput.lookY * LOOK_SPEED * delta,
+        euler.x - lookY * LOOK_SPEED * delta,
         -Math.PI / 2 + 0.05,
         Math.PI / 2 - 0.05,
       )
       camera.quaternion.setFromEuler(euler)
     }
-    const jumpHeld = pressed.has('Space') || Boolean(padInput?.jump)
+    touch.lookX = 0
+    touch.lookY = 0
+    const jumpHeld = pressed.has('Space') || Boolean(padInput?.jump) || touch.jump
     const speed = pressed.has('ShiftLeft') || pressed.has('ShiftRight') || padInput?.run
       ? RUN_SPEED
       : WALK_SPEED
     const forwardInput = THREE.MathUtils.clamp(
       Number(pressed.has('KeyW') || pressed.has('ArrowUp')) -
         Number(pressed.has('KeyS') || pressed.has('ArrowDown')) -
-        (padInput?.moveY ?? 0),
+      (padInput?.moveY ?? 0) +
+      touch.moveY,
       -1,
       1,
     )
     const strafeInput = THREE.MathUtils.clamp(
       Number(pressed.has('KeyD') || pressed.has('ArrowRight')) -
         Number(pressed.has('KeyA') || pressed.has('ArrowLeft')) +
-        (padInput?.moveX ?? 0),
+      (padInput?.moveX ?? 0) +
+      touch.moveX,
       -1,
       1,
     )
@@ -466,12 +563,24 @@ class ModelErrorBoundary extends Component {
 export default function MallExplorer() {
   const [colliders, setColliders] = useState(null)
   const [playing, setPlaying] = useState(false)
+  const [padPlaying, setPadPlaying] = useState(false)
+  const touchInput = useRef({
+    moveX: 0,
+    moveY: 0,
+    lookX: 0,
+    lookY: 0,
+    jump: false,
+  })
+  const getTouchInput = useCallback(() => touchInput.current, [])
   const requestLock = () => {
+    if (navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
+      setPadPlaying(true)
+      return
+    }
     const canvas = document.querySelector('.mall-explorer canvas')
     const result = canvas?.requestPointerLock()
     if (result?.catch) result.catch(() => {})
   }
-  const [padPlaying, setPadPlaying] = useState(false)
   const togglePad = useCallback(() => setPadPlaying((value) => !value), [])
   const [noclip, setNoclip] = useState(false)
   const [status, setStatus] = useState('Preparing the mall…')
@@ -507,6 +616,7 @@ export default function MallExplorer() {
                 onNoclip={setNoclip}
                 active={playing || padPlaying}
                 onPadToggle={togglePad}
+                getTouchInput={getTouchInput}
               />}
           </Suspense>
         </Canvas>
@@ -532,7 +642,7 @@ export default function MallExplorer() {
                 ? `Downloading the mall… ${Math.round(progress)}%`
                 : status}
           </span>
-          <span>WASD / arrows to move · Mouse to look · Space to jump · Shift to run</span>
+          <span>WASD / arrows or touch joystick to move · Mouse or drag to look · Space / Jump to jump · Shift to run</span>
           <span>Alt+N toggles noclip (fly through walls) · Esc to pause</span>
           <span>Controller: Start to play/pause · Left stick move · Right stick look · A jump · L3/triggers run · Y noclip (A up, B down)</span>
         </button>
@@ -541,6 +651,7 @@ export default function MallExplorer() {
       {noclip && <div className="mall-noclip">NOCLIP · Space up · C down · Alt+N to exit</div>}
 
       {(playing || padPlaying) && <div className="mall-crosshair" aria-hidden="true">+</div>}
+      {padPlaying && <TouchControls getInput={getTouchInput} />}
 
       <a
         className="mall-attribution"

@@ -20,22 +20,26 @@ export default function PreMall() {
       </section>
 
       <section className="pre-mall-section">
-        <h3 className="pre-mall-section-title">Photos and video</h3>
-        <div className="pre-mall-media">
-          <div className="pre-mall-photos">
-            <figure className="pre-mall-photo-card">
-              <img src={kanepixels} alt="Kane Parsons" />
-              <figcaption>Photo of Kane Parsons</figcaption>
-            </figure>
-            <figure className="pre-mall-photo-card">
-              <img src={viewOutside} alt="Valley View Center entrance" />
-              <figcaption>Photo of Valley View Center entrance</figcaption>
-            </figure>
-            <figure className="pre-mall-photo-card">
-              <img src={eldestView} alt="Valley View Center" />
-              <figcaption>The Rolling Giant from Kane Parsons&apos;s <em>The Oldest View</em></figcaption>
-            </figure>
-          </div>
+        <h3 className="pre-mall-section-title">Photos</h3>
+        <div className="pre-mall-photos">
+          <figure className="pre-mall-photo-card">
+            <img src={kanepixels} alt="Kane Parsons" />
+            <figcaption>Photo of Kane Parsons</figcaption>
+          </figure>
+          <figure className="pre-mall-photo-card">
+            <img src={viewOutside} alt="Valley View Center entrance" />
+            <figcaption>Photo of Valley View Center entrance</figcaption>
+          </figure>
+          <figure className="pre-mall-photo-card">
+            <img src={eldestView} alt="Valley View Center" />
+            <figcaption>The Rolling Giant from Kane Parsons&apos;s <em>The Oldest View</em></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div className="pre-mall-video-row">
+        <section className="pre-mall-section">
+          <h3 className="pre-mall-section-title">Video</h3>
           <div className="pre-mall-video">
             <iframe
               width="560"
@@ -46,23 +50,22 @@ export default function PreMall() {
               allowFullScreen
             ></iframe>
           </div>
+        </section>
+        <div className="pre-mall-next">
+          <Link
+            className="door-link"
+            to="/3d"
+            aria-label="Enter the mall"
+            style={{ '--tilt': '-1.5deg' }}
+          >
+            <span className="door-label">Enter the mall</span>
+            <span className="door-stage">
+              <img className="door-closed" src={doorClosed} alt="Closed door to the mall" />
+              <img className="door-open" src={doorOpen} alt="" aria-hidden="true" />
+            </span>
+          </Link>
         </div>
-      </section>
-
-      <section className="pre-mall-next">
-        <Link
-          className="door-link"
-          to="/3d"
-          aria-label="Enter the mall"
-          style={{ '--tilt': '-1.5deg' }}
-        >
-          <span className="door-label">Enter the mall</span>
-          <span className="door-stage">
-            <img className="door-closed" src={doorClosed} alt="Closed door to the mall" />
-            <img className="door-open" src={doorOpen} alt="" aria-hidden="true" />
-          </span>
-        </Link>
-      </section>
+      </div>
     </main>
   )
 }

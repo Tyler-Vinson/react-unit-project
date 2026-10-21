@@ -19,7 +19,7 @@ const MainRoom = () => (
     >
       <span className="door-stage">
         <img className="door-closed" src={doorClosed} alt="Closed museum door" />
-        <img className="door-open" src={doorOpen} alt="" aria-hidden="true" />
+        <img className="door-open" src={doorOpen} alt="" />
       </span>
     </Link>
   </main>
