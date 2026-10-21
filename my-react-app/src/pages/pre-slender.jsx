@@ -2,13 +2,14 @@ import "../pre-slender.css"
 import { Link } from "react-router-dom"
 import doorClosed from "../assets/doorclosed.png"
 import doorOpen from "../assets/three-doors-center-open-static-frame.png"
-import slenderman from "../assets/slenderman.webp"
+import slenderman from "../assets/slendman.jpeg"
 import slenderHeadshot from "../assets/Slender headhot.png"
 
 export default function PreSlender() {
   return (
-    <main className="pre-mall-page">
-      <section className="pre-mall-section pre-mall-intro pre-mall-intro-plain">
+    <main className="pre-mall-page slender-bg">
+      <section className="pre-mall-section pre-mall-intro">
+        <img className="topphoto" src={slenderman} alt="Slender Man" />
         <div className="pre-mall-intro-copy">
           <h1>Slender Man</h1>
           <h2>Created in 2009</h2>

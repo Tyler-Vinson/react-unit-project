@@ -1,4 +1,5 @@
 import "./../pre-slender.css";
+import house from "../assets/blair house.jpeg";
 import { Link } from "react-router-dom";
 import doorClosed from "../assets/doorclosed.png";
 import doorOpen from "../assets/three-doors-center-open-static-frame.png";
@@ -8,7 +9,8 @@ import witchTotem from "../assets/witch totem.webp";
 export default function PreWitch() {
   return (
     <main className="pre-mall-page witch-bg">
-      <section className="pre-mall-section pre-mall-intro pre-mall-intro-plain">
+      <section className="pre-mall-section pre-mall-intro">
+        <img className="topphoto" src={house} alt="Blair Witch House" />
         <div className="pre-mall-intro-copy">
           <h1>The Blair Witch Project</h1>
           <h2>Released in 1999</h2>

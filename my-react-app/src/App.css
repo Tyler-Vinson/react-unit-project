@@ -41,7 +41,7 @@ main.main-room {
   text-align: left;
   border: 0;
   background:
-    linear-gradient(rgb(173 165 96 / 60%), rgb(157 139 65 / 80%)),
+    linear-gradient(rgb(173 165 96 / 28%), rgb(157 139 65 / 42%)),
     url('./assets/main-room-background.avif') center / cover no-repeat;
   color: var(--ink);
 }
@@ -167,41 +167,6 @@ main.main-room {
 .room-door-link:focus-visible {
   outline: 2px solid var(--bright);
   outline-offset: 2px;
-}
-
-.exit-door-link {
-  position: absolute;
-  top: 0.25rem;
-  right: 1rem;
-  display: block;
-  width: 1.25rem;
-  perspective: 700px;
-}
-
-.exit-door-link:focus-visible {
-  outline: 2px solid var(--bright);
-  outline-offset: 2px;
-}
-
-.exit-door {
-  display: block;
-  width: 100%;
-  height: auto;
-  transform-origin: left center;
-  transition: transform 650ms ease, filter 650ms ease;
-  backface-visibility: hidden;
-}
-
-.exit-door-link:hover .exit-door,
-.exit-door-link:focus-visible .exit-door {
-  transform: perspective(700px) rotateY(-70deg);
-  filter: brightness(0.8);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .exit-door {
-    transition: none;
-  }
 }
 
 /* ===== Doors (used on the main page and the info pages) ===== */

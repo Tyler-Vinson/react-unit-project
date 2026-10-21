@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import doorClosed from "../assets/doorclosed.png";
 import roomImage from "../assets/room-without-pillars.png";
 import closedLeftDoor from "../assets/three-doors-left-closed.png";
 import openLeftDoor from "../assets/three-doors-left-open.png";
@@ -74,13 +73,6 @@ const ThreeDoors = () => {
           </Link>
         </div>
       </div>
-      <Link
-        className="exit-door-link"
-        to="/"
-        aria-label="Return to the front page"
-      >
-        <img className="exit-door" src={doorClosed} alt="Exit door" />
-      </Link>
     </main>
   );
 };

@@ -252,3 +252,49 @@ main.witch-bg .slender-model-frame {
 body:has(main.witch-bg) nav {
   background: rgb(173 165 96 / 0.8);
 }
+
+/* ---- Mall page: full-screen background image ---- */
+main.mall-bg {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+main.mall-bg::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url('./assets/outer-view-tree-stairs.webp') center / cover no-repeat;
+  content: '';
+}
+
+body:has(main.mall-bg) {
+  background: transparent;
+}
+
+main.mall-bg .pre-mall-section {
+  background: rgb(221 220 165 / 0.72);
+}
+
+/* ---- Slender Man page: full-screen background image ---- */
+main.slender-bg {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+main.slender-bg::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url('./assets/slenderman background.jpg') center / cover no-repeat;
+  content: '';
+}
+
+body:has(main.slender-bg) {
+  background: transparent;
+}
+
+main.slender-bg .pre-mall-section {
+  background: rgb(221 220 165 / 0.72);
+}

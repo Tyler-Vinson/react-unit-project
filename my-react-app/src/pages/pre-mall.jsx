@@ -9,7 +9,7 @@ import eldestView from "../assets/eldest-view.jpeg"
 
 export default function PreMall() {
   return (
-    <main className="pre-mall-page">
+    <main className="pre-mall-page mall-bg">
       <section className="pre-mall-section pre-mall-intro">
         <img className="topphoto" src={valleyMall} alt="Valley View Center" />
         <div className="pre-mall-intro-copy">
