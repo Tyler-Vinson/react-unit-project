@@ -164,6 +164,13 @@ main.pre-mall-page {
   --door-h: min(20rem, 45vh);
 }
 
+.pre-mall-next .door-label {
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  color: var(--bright);
+  background: rgb(31 28 14 / 0.8);
+}
+
 .pre-mall-video-row {
   display: grid;
   grid-template-columns: minmax(0, 32rem) auto;

@@ -428,7 +428,7 @@ function Player({ meshes, bounds, spawn, onNoclip, active, onPadToggle, getTouch
       Number(pressed.has('KeyW') || pressed.has('ArrowUp')) -
         Number(pressed.has('KeyS') || pressed.has('ArrowDown')) -
       (padInput?.moveY ?? 0) +
-      touch.moveY,
+      -touch.moveY,
       -1,
       1,
     )
