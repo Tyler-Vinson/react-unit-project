@@ -1,14 +1,14 @@
 <div align="center">
-  <img style="width: 15%;" src="./src/assets/doorclosed.png" alt="Closed museum door">
+  <img style="width: 15%;" src="https://raw.githubusercontent.com/Tyler-Vinson/react-unit-project/main/my-react-app/src/assets/doorclosed.png" alt="Closed museum door">
 
   # **THE ABANDONED INTERNET MUSEUM**
 
   ## **DESCRIPTION**
-  "The Abandoned Internet Museum" is an interactive web museum about notable internet-horror stories and spaces. Visitors begin in the museum lobby, choose an exhibit through three doors, learn about each subject, and can explore a 3D recreation of Valley View Center from *The Oldest View*.
+  "The Abandoned Internet Museum" is an interactive web museum about notable internet-horror stories and spaces. Visitors begin in the museum lobby, choose an exhibit through three doors, learn about [...]
 
   COLOR PALETTE | LIVE DEMO
 :-------------------------:|:-------------------------:
-<img style="width: 50%;" src="./src/assets/color%20pallete.png" alt="The Abandoned Internet Museum color palette"> | [Open the museum](https://tyler-vinson.github.io/react-unit-project/)
+<img style="width: 50%;" src="https://raw.githubusercontent.com/Tyler-Vinson/react-unit-project/main/my-react-app/src/assets/color%20pallete.png" alt="The Abandoned Internet Museum color palette"> | [Open the museum](https://tyler-vinson.github.io/react-unit-project/)
 </div>
 
 ## **KEY FEATURES:**
