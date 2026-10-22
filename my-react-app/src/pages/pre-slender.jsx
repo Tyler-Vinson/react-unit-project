@@ -4,6 +4,8 @@ import doorClosed from "../assets/doorclosed.png"
 import doorOpen from "../assets/three-doors-center-open-static-frame.png"
 import slenderman from "../assets/slendman.jpeg"
 import slenderHeadshot from "../assets/Slender headhot.png"
+import slendermanman from "../assets/slenderman.webp"
+
 
 export default function PreSlender() {
   return (
@@ -27,7 +29,7 @@ export default function PreSlender() {
         <h3 className="pre-mall-section-title">Photos</h3>
         <div className="pre-mall-photos">
           <figure className="pre-mall-photo-card">
-            <img src={slenderman} alt="Slender Man" />
+            <img src={slendermanman} alt="Slender Man" />
             <figcaption>Original edited photo of Slender Man</figcaption>
           </figure>
           <figure className="pre-mall-photo-card">
