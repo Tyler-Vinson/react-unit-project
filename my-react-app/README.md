@@ -1,61 +1,16 @@
-<div align="center">
-  <img style="width: 15%;" src="./src/assets/doorclosed.png" alt="Closed museum door">
+# React + Vite
 
-  # **THE ABANDONED INTERNET MUSEUM**
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-  ## **DESCRIPTION**
-  "The Abandoned Internet Museum" is an interactive web museum about notable internet-horror stories and spaces. Visitors begin in the museum lobby, choose an exhibit through three doors, learn about each subject, and can explore a 3D recreation of Valley View Center from *The Oldest View*.
+Currently, two official plugins are available:
 
-  COLOR PALETTE | LIVE DEMO
-:-------------------------:|:-------------------------:
-<img style="width: 50%;" src="./src/assets/color%20pallete.png" alt="The Abandoned Internet Museum color palette"> | <video controls width="100%"><source src="../demo.mp4" type="video/mp4">[Watch or download the demo](../demo.mp4)</video>
-</div>
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## **KEY FEATURES:**
+## React Compiler
 
-1. **MUSEUM LOBBY:**
-   - Introduces the museum and provides an animated door leading to the exhibit hall.
-   - Includes background music controls for the museum experience.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-2. **THREE-DOOR EXHIBIT HALL:**
-   - Presents three interactive doors for Valley View Center, Slender Man, and *The Blair Witch Project*.
-   - Each door responds to hover and keyboard focus before opening its exhibit.
+## Expanding the ESLint configuration
 
-3. **EXHIBIT PAGES:**
-   - Provides historical context, images, videos, and themed backgrounds for each topic.
-   - Includes a consistent door control to continue into the selected experience.
-
-4. **INTERACTIVE 3D MALL:**
-   - Loads a navigable 3D recreation of Valley View Center.
-   - Supports collision detection, walking, running, jumping, and noclip mode.
-   - Works with keyboard and mouse, game controllers, and mobile touch controls.
-
-5. **RESPONSIVE DESIGN:**
-   - Adapts exhibit content, media, and navigation to smaller screens.
-   - Provides an on-screen joystick, look area, and jump control for mobile mall exploration.
-
-## **HOW TO USE (Visual Studio Code)**
-
-1. Install [Node.js](https://nodejs.org/) on your computer.
-2. Download [Visual Studio Code](https://code.visualstudio.com/).
-3. Clone this repository and open the `my-react-app` folder in Visual Studio Code.
-4. In the terminal, install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-5. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-6. Open the local URL displayed in the terminal, usually `http://localhost:5173/react-unit-project/`.
-
-## **SCRIPTS**
-
-- `npm run dev` — starts the Vite development server.
-- `npm run lint` — checks the project with ESLint.
-- `npm run build` — creates a production build in `dist/`.
-- `npm run deploy` — builds and publishes the site to GitHub Pages.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
