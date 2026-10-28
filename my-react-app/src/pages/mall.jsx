@@ -662,5 +662,4 @@ export default function MallExplorer() {
         Model by maxwellpray · CC BY 4.0
       </a>
     </main>
-  )
-}
+  )}
