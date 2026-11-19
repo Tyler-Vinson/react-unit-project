@@ -406,8 +406,8 @@ function Player({ meshes, bounds, spawn, onNoclip, active, onPadToggle, getTouch
       last.noclip = pad.noclip
     }
     const padInput = pad && activeRef.current ? pad : null
-    const lookX = (padInput?.lookX ?? 0) * 20 + touch.lookX * 0.08
-    const lookY = (padInput?.lookY ?? 0) * 20 + touch.lookY * 0.08
+    const lookX = (padInput?.lookX ?? 0) * 10 + touch.lookX * 0.08
+    const lookY = (padInput?.lookY ?? 0) * 10 + touch.lookY * 0.08
     if (lookX || lookY) {
       const euler = new THREE.Euler().setFromQuaternion(camera.quaternion, 'YXZ')
       euler.y -= lookX * LOOK_SPEED * delta
